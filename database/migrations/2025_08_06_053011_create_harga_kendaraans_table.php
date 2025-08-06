@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('harga_kendaraan', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_merek_kendaraan');
-            $table->integer('id_tipe_kendaraan');
-            $table->integer('id_jenis_kendaraan');
-            $table->integer('id_tahun_kendaraan');
+            $table->foreignId('id_merek_kendaraan')->constrained('merek_kendaraan');
+            $table->foreignId('id_tipe_kendaraan')->constrained('tipe_kendaraan');
+            $table->foreignId('id_jns_kendaraan')->constrained('jns_kendaraan');
+            $table->foreignId('id_tahun_kendaraan')->constrained('tahun_kendaraan');
             $table->integer('harga');
             $table->string('aktif',1);
-            
             $table->timestamps();
         });
     }

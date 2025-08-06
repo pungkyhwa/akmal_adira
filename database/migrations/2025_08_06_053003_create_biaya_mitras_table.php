@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('biaya_admin', function (Blueprint $table) {
+        Schema::create('biaya_mitra', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_rate');
-            $table->integer('id_tenor');
-            $table->integer('biaya_admin');
+            $table->foreignId('id_tenor')->constrained('tenor');
+            $table->integer('biaya_mitra');
             $table->integer('min_pinjaman');
             $table->integer('max_pinjaman');
+
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('biaya_admin');
+        Schema::dropIfExists('biaya_mitra');
     }
 };

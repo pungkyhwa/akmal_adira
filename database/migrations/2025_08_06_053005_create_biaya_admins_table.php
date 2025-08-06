@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kerek_kendaraan', function (Blueprint $table) {
+        Schema::create('biaya_admin', function (Blueprint $table) {
             $table->id();
-            $table->string('merek_kendaraan');
+            $table->foreignId('id_rate')->constrained('rate');
+            $table->foreignId('id_tenor')->constrained('tenor');
+            $table->integer('biaya_admin');
+            $table->integer('min_pinjaman');
+            $table->integer('max_pinjaman');
+
 
             $table->timestamps();
         });
@@ -24,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kerek_kendaraan');
+        Schema::dropIfExists('biaya_admin');
     }
 };
