@@ -1,0 +1,9 @@
+nav {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+ul {
+    display: grid;
+
+}
