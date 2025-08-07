@@ -12,7 +12,7 @@ class asuransiRateController extends Controller
      */
     public function index(Request $request)
     {
-         $query = asuransiRate::query();
+        $query = asuransiRate::query();
 
         // Jika ada input 'cari' dari form
         if ($request->has('cari') && $request->cari != '') {
