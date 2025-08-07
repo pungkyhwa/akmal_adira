@@ -21,6 +21,18 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="{{route('asuransiRate.index')}}">
+                <span class="menu-title">Insurance Rate</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('tenor.index')}}">
+                <span class="menu-title">Tenor</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Basic UI Elements</span>
                 <i class="menu-arrow"></i>
