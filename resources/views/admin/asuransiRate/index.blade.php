@@ -116,8 +116,15 @@
                                     <td>{{ ($asuransiRate->currentPage() - 1) * $asuransiRate->perPage() + $loop->iteration }}</td>
                                     <td>{{$row->asuransi_rate}}{{ $row->satuan}}</td>
                                     <td>
-                                        <a href="{{route('asuransiRate.edit',$row->id)}}" class="btn btn-success">edit</a>
-                                        <a href="{{route('asuransiRate.destroy',$row->id)}}" class="btn btn-danger">hapus</a>
+                                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                                            <a href="{{route('asuransiRate.edit',$row->id)}}" class="btn btn-success">edit</a>
+                                            <form action="{{route('asuransiRate.destroy',$row->id)}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">hapus</button>
+                                            </form>
+                                        </div>
+
                                     </td>
                                 </tr>                                
                                 @endforeach

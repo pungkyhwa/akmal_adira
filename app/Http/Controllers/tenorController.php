@@ -26,7 +26,6 @@ class tenorController extends Controller
         }
 
         $tenor = $query->paginate(10)->appends(['cari' => $search]);
-        dd($query->get());
         return view('admin.tenor.index',compact('tenor', 'search'));
     }
 
