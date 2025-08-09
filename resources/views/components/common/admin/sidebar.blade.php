@@ -72,10 +72,16 @@
                         <a class="nav-link" href="{{route('tipeKendaraan.index')}}">Tipe Kendaraan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/ui-features/typography.html">Harga Kendaraan</a>
+                        <a class="nav-link" href="{{ route('hargaKendaraan.index')}}">Harga Kendaraan</a>
                     </li>
                 </ul>
             </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('simulasi.index')}}">
+                <span class="menu-title">Simulasi</span>
+                <i class="mdi mdi-home menu-icon"></i>
+            </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">

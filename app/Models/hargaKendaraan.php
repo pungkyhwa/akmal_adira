@@ -16,16 +16,16 @@ class hargaKendaraan extends Model
         'aktif',
     ];
     public function merekKendaraan(){
-        return $this->belongsTo(tenor::class,'id_merek_kendaraan','id');
+        return $this->belongsTo(merekKendaraan::class,'id_merek_kendaraan','id');
     }
     public function tipeKendaraan(){
-        return $this->belongsTo(tenor::class,'id_tipe_kendaraan','id');
+        return $this->belongsTo(tipeKendaraan::class,'id_tipe_kendaraan','id');
     }
     public function jnsKendaraan(){
-        return $this->belongsTo(tenor::class,'id_jns_kendaraan','id');
+        return $this->belongsTo(jnsKendaraan::class,'id_jns_kendaraan','id');
     }
     public function tahunKendaraan(){
-        return $this->belongsTo(tenor::class,'id_tahun_kendaraan','id');
+        return $this->belongsTo(tahunKendaraan::class,'id_tahun_kendaraan','id');
     }
 
 }

@@ -65,12 +65,12 @@
             <h3 class="page-title">
                 <span class="page-title-icon bg-gradient-primary text-white me-2">
                     <i class="mdi mdi-home"></i>
-                </span> Tampil Biaya Admin
+                </span> Tampil Harga Kendaraan
             </h3>
             <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item active" aria-current="page">
-                        <span></span>Biaya Admin <i
+                        <span></span>Harga Kendaraan <i
                             class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
                     </li>
                 </ul>
@@ -80,19 +80,19 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Biaya Admin</h4>
-                        <p class="card-description">Tabel Berisi Biaya Admin</p>
+                        <h4 class="card-title">Harga Kendaraan</h4>
+                        <p class="card-description">Tabel Berisi Harga Kendaraan</p>
 
                         <!-- Search -->
                         <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
 
                             <!-- Tombol Tambah Data (kiri) -->
-                            <a class="btn btn-gradient-primary me-2" href="{{ route('biayaAdmin.create') }}">
+                            <a class="btn btn-gradient-primary me-2" href="{{ route('hargaKendaraan.create') }}">
                                 Tambah Data
                             </a>
 
                             <!-- Form Search (kanan) -->
-                            <form action="{{ route('biayaAdmin.index') }}" method="GET" class="d-flex mb-3">
+                            <form action="{{ route('hargaKendaraan.index') }}" method="GET" class="d-flex mb-3">
                                 <div class="input-group">
                                     <input type="text" name="cari" class="form-control search-bar"
                                         placeholder="Cari...">
@@ -108,11 +108,12 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Rate</th>
-                                        <th>Tenor</th>
-                                        <th>Biaya Admin</th>
-                                        <th>Minimal Pinjaman</th>
-                                        <th>Maximal Pinjaman</th>
+                                        <th>Merk Kendaraan</th>
+                                        <th>Tipe Kendaraan</th>
+                                        <th>Jenis Kendaraan</th>
+                                        <th>Tahun Kendaraan</th>
+                                        <th>Harga</th>
+                                        <th>Aktif</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -121,16 +122,17 @@
                                     @forelse ($data as $row)
                                         <tr>
                                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
-                                            <td>{{$row->rate->rate}}</td>
-                                            <td>{{$row->tenor->tenor}} {{$row->tenor->satuan}}</td>
-                                            <td>Rp. {{number_format($row->biaya_admin, 0, ',', '.')}}</td>
-                                            <td>Rp. {{number_format($row->min_pinjaman, 0, ',', '.')}}</td>
-                                            <td>Rp. {{number_format($row->max_pinjaman, 0, ',', '.')}}</td>
+                                            <td>{{$row->merekKendaraan->merek_kendaraan}}</td>
+                                            <td>{{$row->tipeKendaraan->tipe_kendaraan}} </td>
+                                            <td>{{$row->jnsKendaraan->jns_kendaraan}}</td>
+                                            <td>{{$row->tahunKendaraan->tahun_kendaran}}</td>
+                                            <td>Rp. {{number_format($row->harga,0,',','.')}}</td>
+                                            <td>{{$row->aktif}}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center gap-2 flex-wrap">
-                                                    <a href="{{route('biayaAdmin.edit', $row->id)}}"
+                                                    <a href="{{route('hargaKendaraan.edit', $row->id)}}"
                                                         class="btn btn-success">edit</a>
-                                                    <form action="{{route('biayaAdmin.destroy', $row->id)}}" method="post">
+                                                    <form action="{{route('hargaKendaraan.destroy', $row->id)}}" method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">hapus</button>
