@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('biaya_mitra', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_tenor')->constrained('tenor');
-            $table->integer('biaya_mitra');
-            $table->integer('min_pinjaman');
-            $table->integer('max_pinjaman');
+            $table->decimal('biaya_mitra');
+            $table->decimal('min_pinjaman');
+            $table->decimal('max_pinjaman');
 
             $table->timestamps();
         });

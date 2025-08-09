@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('id_cln_nasabah');
             $table->integer('id_harga_kendaraan');
             $table->integer('id_tenor');
-            $table->integer('biaya_pinjaman');
+            $table->decimal('biaya_pinjaman');
             $table->integer('cicilan');
             $table->timestamps();
         });

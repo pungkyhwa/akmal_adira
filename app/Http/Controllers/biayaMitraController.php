@@ -60,7 +60,7 @@ class biayaMitraController extends Controller
 
         ]);
         return redirect()->route('tenor.index')
-                ->with('success', 'Data Tenor Berhasil Ditambahkan');
+                ->with('success', 'Data Biaya Mitra Berhasil Ditambahkan');
     }
 
     /**
@@ -68,7 +68,7 @@ class biayaMitraController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //    
     }
 
     /**
@@ -76,7 +76,9 @@ class biayaMitraController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tenor = tenor::get(); 
+        $biayaMitra = biayaMitra::with('tenor')->where('id','=',$id)->get();
+        return view('admin.biayaMitra.edit',compact('biayaMitra','tenor')); 
     }
 
     /**
@@ -84,7 +86,22 @@ class biayaMitraController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'id_tenor' => 'required',
+            'min_pinjaman' => 'required',
+            'max_pinjaman' => 'required',
+            'biaya_mitra' => 'required',
+        ]);
+        $biayaMitra = biayaMitra::findOrFail($id);
+        $biayaMitra->update([
+            'id_tenor' => str_replace('.', '',$request->input('id_tenor')),
+            'min_pinjaman' => str_replace('.', '',$request->input('min_pinjaman')),
+            'max_pinjaman' => str_replace('.', '',$request->input('max_pinjaman')),
+            'biaya_mitra' => str_replace('.', '',$request->input('biaya_mitra')),
+        ]);        
+
+        return redirect()->route('biayaMitra.index')
+            ->with('success', 'Data Biaya Mitra Berhasil Di Update');
     }
 
     /**
@@ -92,6 +109,10 @@ class biayaMitraController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $biayaMitra = biayaMitra::findOrFail($id);
+        $biayaMitra->delete();
+        
+        return redirect()->route('biayaMitra.index')
+        ->with('success', 'Data Biaya Mitra Di Hapus');
     }
 }
