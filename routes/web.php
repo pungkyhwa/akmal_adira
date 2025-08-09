@@ -1,6 +1,7 @@
  <?php
 
 use App\Http\Controllers\asuransiRateController;
+use App\Http\Controllers\biayaMitraController;
 use App\Http\Controllers\jnsKendaraanController;
 use App\Http\Controllers\merekKendaraanController;
 use App\Http\Controllers\rateController;
@@ -22,6 +23,7 @@ Route::get('/tentangAdira', function() {
 Route::resource('/asuransiRate', asuransiRateController::class);
 Route::resource('/tenor',tenorController::class);
 Route::resource('/rate',rateController::class);
+Route::resource('/biayaMitra',biayaMitraController::class);
 
 Route::resource('/jnsKendaraan',jnsKendaraanController::class);
 Route::resource('/merekKendaraan',merekKendaraanController::class);

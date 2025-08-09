@@ -71,7 +71,14 @@ class tenorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tenor = tenor::with('asuransiRate')->where('id','=',$id)->get();
+        // foreach ($tenor as $key) {
+        //     dd($key->asuransiRate->satuan);
+        // }
+
+
+        $asuransiRate = asuransiRate::get(); 
+        return view('admin.tenor.edit',compact('tenor','asuransiRate'));
     }
 
     /**
@@ -79,7 +86,21 @@ class tenorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'tenor' => 'required',
+            'satuan' => 'required',
+            'asuransiRate' => 'required',
+          
+        ]);
+        $merekKendaraan = tenor::findOrFail($id);
+        $merekKendaraan->update([
+            'tenor' => $request->input('tenor'),
+            'satuan' => $request->input('satuan'),
+            'id_asuransi_rate' => $request->input('asuransiRate'),
+        ]);        
+
+        return redirect()->route('tenor.index')
+            ->with('success', 'Data Tenor Berhasil Di Update');
     }
 
     /**
@@ -87,6 +108,10 @@ class tenorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $merekKendaraan = tenor::findOrFail($id);
+        $merekKendaraan->delete();
+        
+        return redirect()->route('tenor.index')
+        ->with('success', 'Data Tenor Di Hapus');
     }
 }

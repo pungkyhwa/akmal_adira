@@ -21,26 +21,17 @@
                     <div class="card-body">
                         <h4 class="card-title">Insurance Rate</h4>
                         <p class="card-description"> Masukkan sesuai perintah </p>
-                        @foreach($tenor as $row)
-                        <form class="forms-sample" method="post" action="{{route('tenor.update',$row->id)}}">
+                        @foreach($asuransiRate as $row)
+                        <form class="forms-sample" method="post" action="{{route('asuransiRate.update',$row->id)}}">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label for="exampleInputName1">Tenor</label>
-                                <input type="text" name="tenor" class="form-control" value="{{$row->tenor}}">
+                                <label for="exampleInputName1">Asuransi / Rate</label>
+                                <input type="text" name="rate" class="form-control" value="{{$row->asuransi_rate}}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Satuan</label>
                                 <input type="text" name="satuan" class="form-control" value="{{$row->satuan}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail3">Asuransi Rate</label>
-                                <select name="asuransiRate" id="" class="form-control">
-                                    <option value="{{$row->asuransiRate->id}}">{{$row->asuransiRate->asuransi_rate}}{{$row->asuransiRate->satuan}}</option>
-                                    @foreach ($asuransiRate as $row1)
-                                        <option value="{{$row->id}}">{{$row1->asuransi_rate}}{{$row1->satuan}}</option>
-                                    @endforeach
-                                </select>
                             </div>
                             
                                 <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>

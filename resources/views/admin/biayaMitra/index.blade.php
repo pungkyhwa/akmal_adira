@@ -64,12 +64,12 @@
         <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary text-white me-2">
             <i class="mdi mdi-home"></i>
-        </span> Tampil Tenor
+        </span> Tampil Biaya Mitra
         </h3>
         <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">
-            <span></span>Tenor <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            <span></span>Biaya Mitra <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
             </li>
         </ul>
         </nav>
@@ -78,19 +78,19 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Tenor</h4>
-                    <p class="card-description">Tabel Berisi Tenor</p>
+                    <h4 class="card-title">V Aksi (Mitra)</h4>
+                    <p class="card-description">Tabel Berisi V Aksi (Mitra)</p>
                     
                     <!-- Search -->
                     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
                         
                         <!-- Tombol Tambah Data (kiri) -->
-                        <a class="btn btn-gradient-primary me-2" href="{{ route('tenor.create') }}">
+                        <a class="btn btn-gradient-primary me-2" href="{{ route('biayaMitra.create') }}">
                             Tambah Data
                         </a>
 
                         <!-- Form Search (kanan) -->
-                        <form action="{{ route('tenor.index') }}" method="GET" class="d-flex mb-3">
+                        <form action="{{ route('biayaMitra.index') }}" method="GET" class="d-flex mb-3">
                             <div class="input-group">
                                 <input type="text" name="cari" class="form-control search-bar" placeholder="Cari...">
                                 <button class="btn btn-gradient-primary" type="submit">Cari</button>
@@ -106,26 +106,31 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Tenor</th>
-                                    <th>Insurance Rate</th>
+                                    <th>Fee Akasi</th>
+                                    <th>Batas Min</th>
+                                    <th>Batas Max</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             
                             <tbody>
-                                @foreach ($tenor as $row)
+                                @foreach ($biayaMitra as $row)
                                 <tr>
-                                    <td>{{ ($tenor->currentPage() - 1) * $tenor->perPage() + $loop->iteration }}</td>
-                                    <td>{{$row->tenor}} {{ $row->satuan}}</td>
-                                    <td>{{$row->asuransiRate->asuransi_rate}}{{ $row->asuransiRate->satuan}}</td>
+                                    <td>{{ ($biayaMitra->currentPage() - 1) * $biayaMitra->perPage() + $loop->iteration }}</td>
+                                    <td>{{$row->tenor->tenor}} {{$row->tenor->satuan}}</td>
+                                    <td>Rp {{ number_format($row->biaya_mitra, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($row->min_pinjaman, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($row->max_pinjaman, 0, ',', '.') }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center gap-2 flex-wrap">
-                                            <a href="{{route('tenor.edit',$row->id)}}" class="btn btn-success">edit</a>
-                                            <form action="{{route('tenor.destroy',$row->id)}}" method="post">
+                                            <a href="{{route('biayaMitra.edit',$row->id)}}" class="btn btn-success">edit</a>
+                                            <form action="{{route('biayaMitra.destroy',$row->id)}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">hapus</button>
                                             </form>
                                         </div>
+
                                     </td>
                                 </tr>                                
                                 @endforeach
@@ -136,10 +141,10 @@
                     <!-- Pagination & Info Jumlah Data -->
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="text-muted">
-                            Menampilkan data ke {{ $tenor->firstItem() }} sampai {{ $tenor->lastItem() }} dari total {{ $tenor->total() }} data.
+                            Menampilkan data ke {{ $biayaMitra->firstItem() }} sampai {{ $biayaMitra->lastItem() }} dari total {{ $biayaMitra->total() }} data.
                         </div>
                         <div>
-                            {{ $tenor->appends(['search' => request('search')])->links('pagination::bootstrap-4') }}
+                            {{ $biayaMitra->appends(['search' => request('search')])->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
 
