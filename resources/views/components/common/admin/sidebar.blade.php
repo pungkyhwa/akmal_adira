@@ -33,6 +33,12 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="{{route('biayaMitra.index')}}">
+                <span class="menu-title">Fee Aksi</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{{route('rate.index')}}">
                 <span class="menu-title">Rate</span>
                 <i class="mdi mdi-home menu-icon"></i>
