@@ -113,6 +113,7 @@
                                         <th>Biaya Admin</th>
                                         <th>Minimal Pinjaman</th>
                                         <th>Maximal Pinjaman</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
 
@@ -121,10 +122,10 @@
                                         <tr>
                                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
                                             <td>{{$row->rate->rate}}</td>
-                                            <td>{{$row->tenor->tenor}}</td>
-                                            <td>{{$row->biaya_admin}}</td>
-                                            <td>{{$row->min_pinjaman}}</td>
-                                            <td>{{$row->max_pinjaman}}</td>
+                                            <td>{{$row->tenor->tenor}} {{$row->tenor->satuana}}</td>
+                                            <td>{{number_format($row->biaya_admin, 0, ',', '.')}}</td>
+                                            <td>{{number_format($row->min_pinjaman, 0, ',', '.')}}</td>
+                                            <td>{{number_format($row->max_pinjaman, 0, ',', '.')}}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center gap-2 flex-wrap">
                                                     <a href="{{route('biayaAdmin.edit', $row->id)}}"

@@ -57,8 +57,29 @@ class BiayaAdminController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        $request->validate([
+            'id_rate' => 'required',
+            'id_tenor' => 'required',
+            'biaya_admin' => 'required|numeric',
+            'min_pinjaman' => 'required|numeric',
+            'max_pinjaman' => 'required|numeric',
+        ], [
+            'id_rate.required' => 'Silahkan Pilih Salah Satu Rate',
+            'id_tenor.required' => 'Silahkan Pilih Salah Satu Tenor',
+            'biaya_admin.required' => 'Biaya Admin Wajib Diisi',
+            'min_pinjaman.required' => 'Minimal Pinjaman Wajib Diisi',
+            'max_pinjaman.required' => 'Maximal Pinjaman Wajib Diisi',
+        ]);
 
+        try {
+            biayaAdmin::create([
+                'id_rate' => $request->id_rate,
+                'id_tenor' => $request->id_tenor,
+                'biaya_admin' => $request->biaya_admin,
+                'min_pinjaman' => $request->min_pinjaman,
+                'max_pinjaman' => $request->max_pinjaman,
+            ]);
+            return redirect()->route('biayaAdmin.index')->with('success', 'Berhasil Menambahkan Biaya Admin');
         } catch (\Throwable $th) {
             return back()->with('error', 'Terjadi kesalahan');
         }
@@ -70,7 +91,8 @@ class BiayaAdminController extends Controller
     public function show(string $id)
     {
         try {
-
+            $data = biayaAdmin::findOrFail($id);
+            return view('admin.biayaAdmin.edit', compact('data'));
         } catch (\Throwable $th) {
             return back()->with('error', 'Terjadi kesalahan');
         }
@@ -82,7 +104,10 @@ class BiayaAdminController extends Controller
     public function edit(string $id)
     {
         try {
-
+            $data = biayaAdmin::findOrFail($id);
+            $tenor = tenor::get();
+            $rate = rate::get();
+            return view('admin.biayaAdmin.edit', compact('data', 'tenor', 'rate'));
         } catch (\Throwable $th) {
             return back()->with('error', 'Terjadi kesalahan');
         }
@@ -93,10 +118,33 @@ class BiayaAdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        try {
+        $request->validate([
+            'id_rate' => 'required',
+            'id_tenor' => 'required',
+            'biaya_admin' => 'required|numeric',
+            'min_pinjaman' => 'required|numeric',
+            'max_pinjaman' => 'required|numeric',
+        ], [
+            'id_rate.required' => 'Silahkan Pilih Salah Satu Rate',
+            'id_tenor.required' => 'Silahkan Pilih Salah Satu Tenor',
+            'biaya_admin.required' => 'Biaya Admin Wajib Diisi',
+            'min_pinjaman.required' => 'Minimal Pinjaman Wajib Diisi',
+            'max_pinjaman.required' => 'Maximal Pinjaman Wajib Diisi',
+        ]);
 
+        try {
+            $data = biayaAdmin::findOrFail($id);
+            $data->update([
+                'id_rate' => $request->id_rate,
+                'id_tenor' => $request->id_tenor,
+                'biaya_admin' => $request->biaya_admin,
+                'min_pinjaman' => $request->min_pinjaman,
+                'max_pinjaman' => $request->max_pinjaman,
+            ]);
+            return redirect()->route('biayaAdmin.index')->with('success', 'Berhasil Mengubah Biaya Admin');
         } catch (\Throwable $th) {
-            return back()->with('error', 'Terjadi kesalahan');
+            dd($th->getMessage());
+            // return back()->with('error', 'Terjadi kesalahan');
         }
     }
 
@@ -106,7 +154,8 @@ class BiayaAdminController extends Controller
     public function destroy(string $id)
     {
         try {
-
+            biayaAdmin::findOrFail($id)->delete();
+            return back()->with('success', 'Berhasil Menghapus Data Biaya Admin');
         } catch (\Throwable $th) {
             return back()->with('error', 'Terjadi kesalahan');
         }

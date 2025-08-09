@@ -36,7 +36,7 @@
                                     @endforeach
                                 </select>
                                 @error('id_rate')
-                                    <div class="text-sm text-red-500">
+                                    <div class="text-danger small">
                                         {{$message}}
                                     </div>
                                 @enderror
@@ -48,21 +48,46 @@
                                     </option>
                                     @foreach ($tenor as $item)
                                         <option value="{{$item->id}}" {{old('id_tenor') == $item->id ? 'selected' : ''}}>
-                                            {{$item->tenor}}</option>
+                                            {{$item->tenor}}
+                                        </option>
                                     @endforeach
                                 </select>
-                                @error('id_rate')
-                                    <div class="text-sm text-red-500">
+                                @error('id_tenor')
+                                    <div class="text-danger small">
                                         {{$message}}
                                     </div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail3">Biaya Admin</label>
-                                <input type="text" name="satuan" class="form-control" id="exampleInputEmail3"
-                                    placeholder="dalam bentuk %">
+                                <label for="biaya_admin">Biaya Admin</label>
+                                <input type="text" name="biaya_admin" class="form-control" id="biaya_admin"
+                                    placeholder="Biaya Admin">
+                                @error('biaya_admin')
+                                    <div class="text-danger small">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
-
+                            <div class="form-group">
+                                <label for="min_pinjaman">Minimal Pinjaman</label>
+                                <input type="text" name="min_pinjaman" class="form-control" id="min_pinjaman"
+                                    placeholder="Minimal Pinjaman">
+                                @error('min_pinjaman')
+                                    <div class="text-danger small">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="max_pinjaman">Maximal Pinjaman</label>
+                                <input type="text" name="max_pinjaman" class="form-control" id="max_pinjaman"
+                                    placeholder="Maximal Pinjaman">
+                                @error('max_pinjaman')
+                                    <div class="text-danger small">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
                             <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
                             <button class="btn btn-secondary">Cancel</button>
                         </form>
