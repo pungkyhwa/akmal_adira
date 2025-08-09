@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_rate')->constrained('rate');
             $table->foreignId('id_tenor')->constrained('tenor');
-            $table->decimal('biaya_admin',10,2);
-            $table->decimal('min_pinjaman',10,2);
-            $table->decimal('max_pinjaman',10,2);
-
-
+            $table->decimal('biaya_admin', 10, 2);
+            $table->decimal('min_pinjaman', 10, 2);
+            $table->decimal('max_pinjaman', 10 ,2);
             $table->timestamps();
         });
     }
