@@ -40,7 +40,8 @@ class SimulasiController extends Controller
         }
 
         $hargaKendaraan = str_replace('.', '',$request->input('hargaKendaraan')); //
-        $maximalPencairan = $hargaKendaraan * 0.8;
+        $maximalPencairan = str_replace('.', '',$request->input('maksPencairan'));
+        // dd($maximalPencairan);
         $tenor = tenor::where('id', $request->tenor)->first();
         $biayaAdmin = biayaAdmin::where('id_tenor', $request->tenor)->first();
         $biayaMitra = biayaMitra::where('id_tenor', $request->tenor)->first();
@@ -48,7 +49,7 @@ class SimulasiController extends Controller
         $uangMuka = $hargaKendaraan - $maximalPencairan;
         $rateAsuransi = asuransiRate::where('id',$tenor->id_asuransi_rate)->first();
         $biayaAsuransi = $rateAsuransi;
-        
+
         // Hitung PV (pokok pinjaman bersih)
         $pv = $hargaKendaraan - ($uangMuka - $biayaAdmin->biaya_admin - $biayaMitra->biaya_mitra - $biayaAsuransi->asuransi_rate);
 
@@ -57,6 +58,7 @@ class SimulasiController extends Controller
 
         // Hitung angsuran
         $angsuran = pmt($rateBulanan, $tenor->tenor, -$pv);
+        $angsuran = ceil($angsuran / 1000) * 1000; 
 
         // Output hasil
         echo "maksimal pencairan", $maximalPencairan, "<br>";
