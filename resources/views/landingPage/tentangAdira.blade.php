@@ -4,12 +4,43 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adira Finance</title>
+    <title>ADIRA Finance Alam Sutera</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="{{ asset('landing_page/1590461312Logo Adira 2.jpg')}}" type="image/x-icon">
+    <style>
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .whatsapp-button img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 
 <body class="bg-white text-gray-800">
+    <a href="https://api.whatsapp.com/send?phone=6285156320270&text=Halo%20saya%20ingin%20bertanya"
+        class="whatsapp-button" target="_blank" aria-label="Chat via WhatsApp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
     <!-- NAVBAR -->
     <nav class="bg-yellow-300 py-4 px-6 shadow-md font-serif">
         <div class="flex items-center justify-between md:justify-center">
@@ -26,8 +57,8 @@
             <!-- Menu (desktop) -->
             <ul class="hidden md:flex gap-12 font-bold items-center">
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
-                <li><a href="#" class="hover:underline">Simulasi</a></li>
-                <li><a href="#" class="hover:underline">Tentang Adira</a></li>
+                <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
+                <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
                 <li><a href="#" class="hover:underline">Contact Us</a></li>
             </ul>
         </div>
@@ -35,9 +66,9 @@
         <!-- Menu (mobile) -->
         <div id="mobile-menu" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out md:hidden">
             <ul class="flex flex-col items-center gap-3 mt-4 font-bold">
-                <li><a href="#" class="hover:underline">Home</a></li>
-                <li><a href="#" class="hover:underline">Simulasi</a></li>
-                <li><a href="#" class="hover:underline">Tentang Adira</a></li>
+                <li><a href="/adiraAlamSutera\" class="hover:underline">Home</a></li>
+                <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
+                <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
                 <li><a href="#" class="hover:underline">Contact Us</a></li>
             </ul>
         </div>
