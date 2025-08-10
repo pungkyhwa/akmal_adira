@@ -180,23 +180,24 @@
         </form>
 
         @if(session('success'))
-        <div class="mt-8 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
-            <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Hasil Simulasi</h2>
+            <div class="mt-8 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+                <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Hasil Simulasi</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="space-y-4">
-                    <div class="flex justify-between border-b pb-2">
-                        <span class="font-semibold">Maksimal Pencairan:</span>
-                        <span>Rp {{session('results.maksimal_pencairan')}}</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between border-b pb-2">
+                            <span class="font-semibold">Maksimal Pencairan:</span>
+                            <span>Rp. {{session('results.maksimal_pencairan')}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                <div class="text-center">
-                    <p class="text-lg font-bold">Angsuran per Bulan</p>
-                    <p class="text-2xl font-bold text-yellow-600 mt-2">Rp {{ session('results.angsuran_per_bulan') }}
-                    </p>
+                <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                    <div class="text-center">
+                        <p class="text-lg font-bold">Angsuran per Bulan</p>
+                        <p class="text-2xl font-bold text-yellow-600 mt-2">Rp. {{ session('results.angsuran_per_bulan') }}
+                        </p>
+                    </div>
                 </div>
             </div>
 

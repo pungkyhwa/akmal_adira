@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('id_tipe_kendaraan')->constrained('tipe_kendaraan');
             $table->foreignId('id_jns_kendaraan')->constrained('jns_kendaraan');
             $table->foreignId('id_tahun_kendaraan')->constrained('tahun_kendaraan');
-            $table->decimal('harga',10,2);
+            $table->decimal('harga',15,2);
             $table->string('aktif',1);
             $table->timestamps();
         });

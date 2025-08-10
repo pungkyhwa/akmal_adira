@@ -121,7 +121,7 @@
                                     @forelse ($data as $row)
                                         <tr>
                                             <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
-                                            <td>{{$row->rate->rate}}</td>
+                                            <td>{{$row->rate->rate}} %</td>
                                             <td>{{$row->tenor->tenor}} {{$row->tenor->satuan}}</td>
                                             <td>Rp. {{number_format($row->biaya_admin, 0, ',', '.')}}</td>
                                             <td>Rp. {{number_format($row->min_pinjaman, 0, ',', '.')}}</td>
