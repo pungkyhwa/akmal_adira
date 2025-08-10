@@ -196,7 +196,7 @@
                     <div class="space-y-4">
                         <div class="flex justify-between border-b pb-2">
                             <span class="font-semibold">Maksimal Pencairan:</span>
-                            <span>Rp {{session('results.maksimal_pencairan')}}</span>
+                            <span>Rp. {{session('results.maksimal_pencairan')}}</span>
                         </div>
                     </div>
                 </div>
@@ -204,7 +204,7 @@
                 <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                     <div class="text-center">
                         <p class="text-lg font-bold">Angsuran per Bulan</p>
-                        <p class="text-2xl font-bold text-yellow-600 mt-2">Rp {{ session('results.angsuran_per_bulan') }}
+                        <p class="text-2xl font-bold text-yellow-600 mt-2">Rp. {{ session('results.angsuran_per_bulan') }}
                         </p>
                     </div>
                 </div>
