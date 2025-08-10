@@ -58,7 +58,7 @@
             <!-- Menu (desktop) -->
             <ul class="hidden md:flex gap-12 font-bold items-center">
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
-                <li><a href="#" class="hover:underline">Simulasi</a></li>
+                <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
                 <li><a href="#" class="hover:underline">Contact Us</a></li>
             </ul>
@@ -67,9 +67,9 @@
         <!-- Menu (mobile) -->
         <div id="mobile-menu" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out md:hidden">
             <ul class="flex flex-col items-center gap-3 mt-4 font-bold">
-                <li><a href="#" class="hover:underline">Home</a></li>
-                <li><a href="#" class="hover:underline">Simulasi</a></li>
-                <li><a href="#" class="hover:underline">Tentang Adira</a></li>
+                <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
+                <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
+                <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
                 <li><a href="#" class="hover:underline">Contact Us</a></li>
             </ul>
         </div>
