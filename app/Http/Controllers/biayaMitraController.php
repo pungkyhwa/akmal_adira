@@ -44,8 +44,6 @@ class biayaMitraController extends Controller
      */
     public function store(Request $request)
     {
-        echo  str_replace('.', '',$request->input('biaya_mitra'));
-
          $request->validate([
             'id_tenor' => 'required',
             'min_pinjaman' => 'required',
