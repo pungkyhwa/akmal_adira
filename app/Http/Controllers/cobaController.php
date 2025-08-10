@@ -54,9 +54,40 @@ class cobaController extends Controller
      */
     public function create()
     {
-        $angsuran = 1452743;
-        $angsuran = ceil($angsuran / 1000)*1000;
-        echo $angsuran;
+        // kirim wa
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://api.fonnte.com/send',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => array(
+            'target' => '85156320270',
+            'message' => 'Assalamulaikum..
+            Nama : pungky
+            whatapp : 089637587329
+            Nilai Pinjaman: 5.000.000
+            Angsuran : Rp 500.000
+            tenor : 11 bulan',
+          
+        ),
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: 9GdkPSi2b2W9zzQ1X2NC' //change TOKEN to your actual token
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+
+
+        
     }
 
     /**

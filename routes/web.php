@@ -39,5 +39,11 @@
     Route::resource('/coba',cobaController::class);
 
     Route::get('/simulasi', [SimulasiController::class,'index'])->name('simulasi.index');
-    Route::get('/harga-kendaraan/{jns}/{merk}/{tipe}/{thn}',[HargaKendaraanAjaxController::class, 'hargaKendaraan'])->name('harga.kendaraan');
     Route::post('/postSimulasi', [SimulasiController::class,'storeSimulasi'])->name('simulasi.storeSimulasi');
+    
+    
+    // api
+    Route::get('/harga-kendaraan/{jns}/{merk}/{tipe}/{thn}',[HargaKendaraanAjaxController::class, 'hargaKendaraan'])->name('harga.kendaraan');
+    Route::get('/merek-kendaraan/{jns}',[HargaKendaraanAjaxController::class, 'merekKendaraan'])->name('harga.kendaraan');
+    Route::get('/tipe-kendaraan/{merk}',[HargaKendaraanAjaxController::class, 'tipeKendaraan'])->name('tipe.kendaraan');
+    Route::get('/tahun-kendaraan/{tipe}',[HargaKendaraanAjaxController::class, 'tahunKendaraan'])->name('tahun.kendaraan');

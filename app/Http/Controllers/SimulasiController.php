@@ -39,7 +39,7 @@ class SimulasiController extends Controller
             }
         }
 
-        $hargaKendaraan = str_replace('.', '', $request->input('hargaKendaraan')); //
+        $hargaKendaraan = str_replace('.', '', $request->input('hargaKendaraan')); 
         $maximalPencairan = str_replace('.', '', $request->input('maksPencairan'));
         $tenor = tenor::where('id', $request->tenor)->first();
         $biayaAdmin = biayaAdmin::where('id_tenor', $request->tenor)->first();
@@ -80,17 +80,17 @@ class SimulasiController extends Controller
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_POSTFIELDS => array(
-            'target' => '625156320270',
+            'target' => '85156320270',
             'message' => 'Assalamulaikum..
             Nama : pungky
             whatapp : 089637587329
-            Nilai Pinjaman: 5.000.000
-            Angsuran : Rp 500.000
-            tenor : 11 bulan',
+            Nilai Pinjaman: Rp '.number_format($maximalPencairan, 0, ',', '.').'
+            Angsuran : Rp '.number_format($angsuran, 0, ',', '.').'
+            tenor : '.$tenor->tenor.' bulan',
           
         ),
         CURLOPT_HTTPHEADER => array(
-            'Authorization: nxVm87zya9w9XsVekPC7' //change TOKEN to your actual token
+            'Authorization: 9GdkPSi2b2W9zzQ1X2NC' //change TOKEN to your actual token
         ),
         ));
 
@@ -98,9 +98,10 @@ class SimulasiController extends Controller
 
         curl_close($curl);
         echo $response;
+        
 
 
-        return back()->with(['success' => true, 'results' => $results]);
+        // return back()->with(['success' => true, 'results' => $results, 'resporns'=>$response]);
         // echo "maksimal pencairan", $maximalPencairan, "<br>";
         // echo "Pokok Pinjaman: Rp " . number_format($pv, 0, ',', '.'), "<br>";
         // echo "Angsuran per bulan: Rp " . number_format($angsuran, 0, ',', '.');
