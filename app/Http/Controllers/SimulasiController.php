@@ -23,7 +23,7 @@ class SimulasiController extends Controller
         $thnKendaraan = tahunKendaraan::get();
         $tipeKendaraan = tipeKendaraan::get();
         $tenor = tenor::get();
-        return view('admin.simulasi.index', compact('jnsKendaraan', 'merkKendaraan', 'thnKendaraan', 'tipeKendaraan', 'tenor'));
+        return view('landingPage.simulasi.index', compact('jnsKendaraan', 'merkKendaraan', 'thnKendaraan', 'tipeKendaraan', 'tenor'));
     }
 
     public function storeSimulasi(Request $request)
@@ -39,15 +39,14 @@ class SimulasiController extends Controller
             }
         }
 
-        $hargaKendaraan = str_replace('.', '',$request->input('hargaKendaraan')); //
-        $maximalPencairan = str_replace('.', '',$request->input('maksPencairan'));
-        // dd($maximalPencairan);
+        $hargaKendaraan = str_replace('.', '', $request->input('hargaKendaraan')); //
+        $maximalPencairan = str_replace('.', '', $request->input('maksPencairan'));
         $tenor = tenor::where('id', $request->tenor)->first();
         $biayaAdmin = biayaAdmin::where('id_tenor', $request->tenor)->first();
         $biayaMitra = biayaMitra::where('id_tenor', $request->tenor)->first();
         $rate = rate::where('id', $biayaAdmin->id_rate)->first();
         $uangMuka = $hargaKendaraan - $maximalPencairan;
-        $rateAsuransi = asuransiRate::where('id',$tenor->id_asuransi_rate)->first();
+        $rateAsuransi = asuransiRate::where('id', $tenor->id_asuransi_rate)->first();
         $biayaAsuransi = $rateAsuransi;
 
         // Hitung PV (pokok pinjaman bersih)
@@ -58,11 +57,19 @@ class SimulasiController extends Controller
 
         // Hitung angsuran
         $angsuran = pmt($rateBulanan, $tenor->tenor, -$pv);
-        $angsuran = ceil($angsuran / 1000) * 1000; 
+        $angsuran = ceil($angsuran / 1000) * 1000;
 
         // Output hasil
-        echo "maksimal pencairan", $maximalPencairan, "<br>";
-        echo "Pokok Pinjaman: Rp " . number_format($pv, 0, ',', '.'), "<br>";
-        echo "Angsuran per bulan: Rp " . number_format($angsuran, 0, ',', '.');
+        $results = [
+            'maksimal_pencairan' => number_format($maximalPencairan, 0, ',', '.'),
+            'pokok_pinjaman' => number_format($pv, 0, ',', '.'),
+            'angsuran_per_bulan' => number_format($angsuran, 0, ',', '.'),
+            'hargaKendaraan' => $hargaKendaraan
+        ];
+
+        return back()->with(['success' => true, 'results' => $results]);
+        // echo "maksimal pencairan", $maximalPencairan, "<br>";
+        // echo "Pokok Pinjaman: Rp " . number_format($pv, 0, ',', '.'), "<br>";
+        // echo "Angsuran per bulan: Rp " . number_format($angsuran, 0, ',', '.');
     }
 }
