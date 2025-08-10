@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\asuransiRateController;
 use App\Http\Controllers\biayaMitraController;
+use App\Http\Controllers\cobaController;
 use App\Http\Controllers\jnsKendaraanController;
 use App\Http\Controllers\merekKendaraanController;
 use App\Http\Controllers\rateController;
@@ -29,4 +30,6 @@ Route::resource('/jnsKendaraan',jnsKendaraanController::class);
 Route::resource('/merekKendaraan',merekKendaraanController::class);
 Route::resource('/tipeKendaraan',tipeKendaraanController::class);
 Route::resource('/tahunKendaraan',tahunKendaraanController::class);
+
+Route::resource('/coba',cobaController::class);
 
