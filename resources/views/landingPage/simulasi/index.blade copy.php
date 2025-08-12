@@ -162,7 +162,7 @@
                 <!-- Maksimal Pencairan -->
                 <div>
                     <label for="maks_pencairan" class="block text-sm font-semibold text-gray-700 mb-1">
-                        Pencairan
+                        Maksimal Pencairan
                     </label>
                     <input id="maks_pencairan" type="text" name="maksPencairan"
                         class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
@@ -186,7 +186,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-4">
                     <div class="flex justify-between border-b pb-2">
-                        <span class="font-semibold">Pencairan:</span>
+                        <span class="font-semibold">Maksimal Pencairan:</span>
                         <span>Rp {{session('results.maksimal_pencairan')}}</span>
                     </div>
                 </div>
@@ -286,24 +286,24 @@
                 return new Intl.NumberFormat('id-ID').format(angka);
             }
 
-            // function updateMaksPencairan(harga) {
-            //     let batasMaksimal = Math.floor(harga * 0.8);
-            //     $('#maks_pencairan').val(formatRupiah(batasMaksimal));
-            //     $('#info-maks').text(`Maksimal pencairan: Rp ${formatRupiah(batasMaksimal)}`);
-            // }
+            function updateMaksPencairan(harga) {
+                let batasMaksimal = Math.floor(harga * 0.8);
+                $('#maks_pencairan').val(formatRupiah(batasMaksimal));
+                $('#info-maks').text(`Maksimal pencairan: Rp ${formatRupiah(batasMaksimal)}`);
+            }
 
             // Cek jika input maks_pencairan diubah manual
-            // $('#maks_pencairan').on('input', function() {
-            //     let harga = parseRupiahToNumber($('#harga_kendaraan').val());
-            //     let batasMaksimal = Math.floor(harga * 0.8);
-            //     let nilaiInput = parseRupiahToNumber($(this).val());
+            $('#maks_pencairan').on('input', function() {
+                let harga = parseRupiahToNumber($('#harga_kendaraan').val());
+                let batasMaksimal = Math.floor(harga * 0.8);
+                let nilaiInput = parseRupiahToNumber($(this).val());
 
-            //     if (nilaiInput > batasMaksimal) {
-            //         $(this).val(formatRupiah(batasMaksimal));
-            //     } else {
-            //         $(this).val(formatRupiah(nilaiInput));
-            //     }
-            // });
+                if (nilaiInput > batasMaksimal) {
+                    $(this).val(formatRupiah(batasMaksimal));
+                } else {
+                    $(this).val(formatRupiah(nilaiInput));
+                }
+            });
 
             // Load kendaraan via AJAX
             function loadMerek() {

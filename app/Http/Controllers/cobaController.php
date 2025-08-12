@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\biayaAdmin;
+use App\Models\biayaMitra;
+use App\Models\tenor;
 use Illuminate\Http\Request;
 
 class cobaController extends Controller
@@ -11,41 +14,61 @@ class cobaController extends Controller
      */
     public function index()
     {
-        function pmt($rate, $nper, $pv, $fv = 0, $type = 0) {
-            if ($rate == 0) {
-                return -($pv + $fv) / $nper;
-            } else {
-                return -($rate * ($fv + $pv * pow(1 + $rate, $nper))) /
-                    ((1 + $rate * $type) * (pow(1 + $rate, $nper) - 1));
-            }
-        }
+        $query = tenor::query()->with('asuransiRate');
+        
+        
 
         // Data
-        $hargaKendaraan = 16500000;
-        $maximalPencairan = 12200000;
-        $biayaAdmin = 600000;
-        $biayaMitra = 400000;
-        $rate = 41; // bunga tahunan
-        $uangMuka = $hargaKendaraan - $maximalPencairan;
-        $rateAsuransi = 2.4 / 100;
-        $tenor = 11;
+        $hargaKendaraan = 113700000;
+        $terima_nasabah = 80000000;
+        $pilih_tenor = 11;
 
-        // Hitung biaya asuransi
-        $biayaAsuransi = $rateAsuransi;
+        // mencari biaya admin dari tenor batas pencairan
+        $queryBiayaAdmin = biayaAdmin::join('tenor','tenor.id','=','biaya_admin.id_tenor')
+        ->join('rate', 'rate.id', '=', 'biaya_admin.id_rate') 
+        ->select('biaya_admin.id', 'biaya_admin.id_tenor', 'biaya_admin.id_rate', 'biaya_admin.biaya_admin', 'biaya_admin.min_pinjaman', 'biaya_admin.max_pinjaman', 'tenor.tenor', 'rate.rate')  
+        ->where('tenor.tenor', $pilih_tenor)
+        ->whereRaw($terima_nasabah.' BETWEEN biaya_admin.min_pinjaman AND biaya_admin.max_pinjaman')
+        ->first();
+        $biayaAdmin = $queryBiayaAdmin->biaya_admin;
+        $efektif_rate = $queryBiayaAdmin->rate; 
+        $queryBiayaMitra = biayaMitra::join('tenor','tenor.id','=','biaya_mitra.id_tenor')->select('biaya_mitra.id', 'biaya_mitra.id_tenor', 'biaya_mitra.biaya_mitra', 'biaya_mitra.min_pinjaman', 'biaya_mitra.max_pinjaman', 'tenor.tenor')  
+        ->where('tenor.tenor', $pilih_tenor)
+        ->whereRaw($terima_nasabah.' BETWEEN biaya_mitra.min_pinjaman AND biaya_mitra.max_pinjaman')
+        ->first();
+        $biayaMitra = $queryBiayaMitra->biaya_mitra;
+        
+        $plofon_pinjaman = $terima_nasabah + $biayaMitra + $biayaAdmin;
+        $dp = $hargaKendaraan - $plofon_pinjaman;
+        $persen_dp = ($dp/$hargaKendaraan)*100;
+        $pokok_hutang = $hargaKendaraan - $dp;
 
-        // Hitung PV (pokok pinjaman bersih)
-        $pv = $hargaKendaraan - ($uangMuka - $biayaAdmin - $biayaMitra - $biayaAsuransi);
+        // cek asuransi rate dari tenor di database
+        $rateAsuransiQuery = $query->where('tenor', $pilih_tenor)->first();
+        $rateAsuransi = ($rateAsuransiQuery->asuransiRate->asuransi_rate);
+        $nominal_rate_asuransi = ($hargaKendaraan * $rateAsuransi)/100;
+        $total_pokok_hutang = $pokok_hutang+$nominal_rate_asuransi;
+        $persen_bunga =(($pilih_tenor * ($efektif_rate / 1200) / (1 - pow((1 + $efektif_rate / 1200), -$pilih_tenor))) - 1) * (1200 / $pilih_tenor);
+        $nominal_bunga = ($persen_bunga / 1200) * $pilih_tenor * $total_pokok_hutang;
+        $total_hutang = $total_pokok_hutang+$nominal_bunga;
+        $angsuran = round(($total_hutang / $pilih_tenor) + 1000, -3);
 
-        // Hitung bunga bulanan
-        $rateBulanan = $rate / 1200;
-
-        // Hitung angsuran
-        $angsuran = pmt($rateBulanan, $tenor, -$pv);
-
-        // Output hasil
-        echo "maksimal pencairan",  $maximalPencairan,"<br>";
-        echo "Pokok Pinjaman: Rp " . number_format($pv, 0, ',', '.'),"<br>";
-        echo "Angsuran per bulan: Rp " . number_format($angsuran, 0, ',', '.');
+        echo "Harga Kendaraan = ".$hargaKendaraan."<br>";
+        echo "Terima Nasabah = ".$terima_nasabah."<br>";
+        echo "Plafon Nasabah = ".$plofon_pinjaman."<br>";
+        echo "Tenor dipilih = ".$pilih_tenor." bulan <br>";
+        echo "Biaya Admin = ".$biayaAdmin."<br>";
+        echo "fee Mitra = ".$biayaMitra."<br>";
+        echo "efektif rate = ".$efektif_rate."<br>";
+        echo "dp = ".$dp."<br>";
+        echo "persen dp = ".number_format($persen_dp, 2, ',', '.')."<br>";
+        echo "Pokok Hutang = ".$pokok_hutang."<br>";
+        echo "asuransi rate =".$rateAsuransi." nominal = ".$nominal_rate_asuransi."<br>";
+        echo "Total Pokok Hutang = ".$total_pokok_hutang."<br>";
+        echo "Persen Bunga = ".number_format($persen_bunga, 2, ',', '.')."<br>";
+        echo "Nominal Bunga = ".$nominal_bunga."<br>";
+        echo "Total Hutang = ".$total_hutang."<br>";
+        echo "Angsuran = ".$angsuran."<br>";
 
     }
 
