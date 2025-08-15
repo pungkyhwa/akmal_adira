@@ -39,3 +39,5 @@ Route::resource('/hargaKendaraan',HargaKendaraanController::class);
 Route::get('/simulasi', [SimulasiController::class,'index'])->name('simulasi.index');
 Route::get('/harga-kendaraan/{jns}/{merk}/{tipe}/{thn}',[HargaKendaraanAjaxController::class, 'hargaKendaraan'])->name('harga.kendaraan');
 Route::post('/postSimulasi', [SimulasiController::class,'storeSimulasi'])->name('simulasi.storeSimulasi');
+Route::get('/simulasi/dataCalonPeminjam', [SimulasiController::class,'dataCalonNasabah'])->name('simulasi.dataCalonNasabah');
+Route::post('/simulasi/dataCalonPeminjam', [SimulasiController::class,'storeDataCalonNasabah'])->name('simulasi.storeDataCalonNasabah');

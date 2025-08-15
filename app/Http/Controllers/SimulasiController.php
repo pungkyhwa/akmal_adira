@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\asuransiRate;
 use App\Models\biayaAdmin;
 use App\Models\biayaMitra;
+use App\Models\clnNasabah;
 use App\Models\hargaKendaraan;
 use App\Models\jnsKendaraan;
 use App\Models\merekKendaraan;
@@ -67,9 +68,82 @@ class SimulasiController extends Controller
             'hargaKendaraan' => $hargaKendaraan
         ];
 
+        session(['simulasi_results' => $results]);
+
         return back()->with(['success' => true, 'results' => $results]);
-        // echo "maksimal pencairan", $maximalPencairan, "<br>";
-        // echo "Pokok Pinjaman: Rp " . number_format($pv, 0, ',', '.'), "<br>";
-        // echo "Angsuran per bulan: Rp " . number_format($angsuran, 0, ',', '.');
     }
+
+    public function dataCalonNasabah()
+    {
+        try {
+            $tenor = tenor::get();
+            $merkKendaraan = merekKendaraan::get();
+            $tahunKendaraan = tahunKendaraan::get();
+            return view('landingPage.simulasi.dataCalonPeminjam', compact('tenor', 'merkKendaraan'));
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Terjadi Kesalahan');
+        }
+    }
+
+    public function storeDataCalonNasabah(Request $request)
+    {
+        $request->validate([
+            'jumlah_pinjaman' => 'required',
+            'nik' => 'required',
+            'nohp' => 'required',
+            'email' => 'required',
+            'provinsi' => 'required',
+            'kota' => 'required',
+            'kecamatan' => 'required',
+            'kelurahan' => 'required',
+            'alamat' => 'required',
+            'tmp_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'nm_ibu' => 'required',
+            'tgl_janji' => 'required',
+            'merk_kendaraan' => 'required',
+            'thn_kendaraan' => 'required',
+            'tenor' => 'required',
+            'pekerjaan' => 'required',
+            'lama_bekerja' => 'required',
+            'plat_kendaraan' => 'required',
+            'foto_ktp' => 'required',
+            'foto_stnk' => 'required',
+            'voucher' => 'required',
+        ]);
+
+        try {
+
+            $jumlahPinjaman = str_replace(['Rp. ', '.'], '', $request->jumlah_pinjaman);
+            clnNasabah::create([
+                'jumlah_pinjaman' => $jumlahPinjaman,
+                'nik' => $request->nik,
+                'nohp' => $request->nohp,
+                'email' => $request->email,
+                'provinsi' => $request->provinsi,
+                'kota' => $request->kota,
+                'kecamatan' => $request->kecamatan,
+                'kelurahan' => $request->kelurahan,
+                'alamat' => $request->alamat,
+                'tmp_lahir' => $request->tmp_lahir,
+                'tgl_lahir' => $request->tgl_lahir,
+                'nm_ibu' => $request->nm_ibu,
+                'tgl_janji' => $request->tgl_janji,
+                'merk_kendaraan' => $request->merk_kendaraan,
+                'thn_kendaraan' => $request->thn_kendaraan,
+                'tenor' => $request->tenor,
+                'pekerjaan' => $request->pekerjaan,
+                'lama_bekerja' => $request->lama_bekerja,
+                'plat_kendaraan' => $request->plat_kendaraan,
+                'foto_ktp' => $request->foto_ktp,
+                'foto_stnk' => $request->foto_stnk,
+                'voucher' => $request->voucher,
+            ]);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            // return back()->with('error', 'Terjadi Kesalahan');
+        }
+    }
+
+
 }

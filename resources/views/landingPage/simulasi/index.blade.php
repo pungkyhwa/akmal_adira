@@ -90,7 +90,7 @@
                     <label for="jns_kendaraan" class="block text-sm font-semibold text-gray-700 mb-1">
                         Jenis Kendaraan
                     </label>
-                    <select id="jns_kendaraan" name="jnsKendaraan"
+                    <select id="jns_kendaraan" name="jnsKendaraan" required
                         class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200">
                         <option value="" disabled {{ old('jnsKendaraan') ? '' : 'selected' }}>--Pilih Jenis Kendaraan--
                         </option>
@@ -105,7 +105,7 @@
                     <label for="merk_kendaraan" class="block text-sm font-semibold text-gray-700 mb-1">
                         Merk Kendaraan
                     </label>
-                    <select id="merk_kendaraan" name="merkKendaraan"
+                    <select id="merk_kendaraan" name="merkKendaraan" required
                         class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200">
                         <option value="" disabled {{ old('merekKendaraan') ? '' : 'selected' }}>--Pilih Merk Kendaraan--
                         </option>
@@ -120,7 +120,7 @@
                     <label for="tipe_kendaraan" class="block text-sm font-semibold text-gray-700 mb-1">
                         Tipe Kendaraan
                     </label>
-                    <select id="tipe_kendaraan" name="tipeKendaraan"
+                    <select id="tipe_kendaraan" name="tipeKendaraan" required
                         class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200">
                         <option value="" disabled {{ old('tipeKendaraan') ? '' : 'selected' }}>--Pilih Tipe Kendaraan--
                         </option>
@@ -135,7 +135,7 @@
                     <label for="thn_kendaraan" class="block text-sm font-semibold text-gray-700 mb-1">
                         Tahun Kendaraan
                     </label>
-                    <select id="thn_kendaraan" name="thnKendaraan"
+                    <select id="thn_kendaraan" name="thnKendaraan" required
                         class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200">
                         <option value="" disabled {{ old('thnKendaraan') ? '' : 'selected' }}>--Pilih Tahun Kendaraan--
                         </option>
@@ -150,7 +150,7 @@
                     <label for="harga_kendaraan" class="block text-sm font-semibold text-gray-700 mb-1">
                         Harga Kendaraan
                     </label>
-                    <input id="harga_kendaraan" type="text" name="hargaKendaraan"
+                    <input id="harga_kendaraan" type="text" name="hargaKendaraan" required
                         class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
                 </div>
 
@@ -159,7 +159,7 @@
                     <label for="tenor" class="block text-sm font-semibold text-gray-700 mb-1">
                         Tenor
                     </label>
-                    <select id="tenor" name="tenor"
+                    <select id="tenor" name="tenor" required
                         class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200">
                         <option value="" disabled {{ old('tenor') ? '' : 'selected' }}>--Pilih Tenor--</option>
                         @foreach ($tenor as $item)
@@ -173,7 +173,7 @@
                     <label for="maks_pencairan" class="block text-sm font-semibold text-gray-700 mb-1">
                         Maksimal Pencairan
                     </label>
-                    <input id="maks_pencairan" type="text" name="maksPencairan"
+                    <input id="maks_pencairan" type="text" name="maksPencairan" required
                         class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
                     <p id="info-maks" class="text-xs text-gray-500 mt-1"></p>
                 </div>
@@ -192,9 +192,9 @@
             <div class="mt-8 bg-white shadow-lg rounded-lg p-6 border border-gray-200">
                 <h2 class="text-xl font-bold mb-4 text-center text-gray-800">Hasil Simulasi</h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-4">
-                        <div class="flex justify-between border-b pb-2">
+                <div class="flex justify-center gap-6">
+                    <div class="space-y-4 text-center">
+                        <div class="flex justify-between border-b pb-2 gap-5">
                             <span class="font-semibold">Maksimal Pencairan:</span>
                             <span>Rp. {{session('results.maksimal_pencairan')}}</span>
                         </div>
@@ -210,10 +210,9 @@
                 </div>
 
                 <div class="mt-6 text-center">
-                    <a href="https://api.whatsapp.com/send?phone=6285156320270&text=Halo%20saya%20ingin%20bertanya%20tentang%20simulasi%20kredit"
-                        class="inline-block px-6 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md shadow-md transition"
-                        target="_blank">
-                        Konsultasi via WhatsApp
+                    <a href="/simulasi/dataCalonPeminjam"
+                        class="inline-block px-6 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md shadow-md transition" >
+                        Ajukan Pinjaman
                     </a>
                 </div>
             </div>
@@ -222,7 +221,7 @@
 
 
     <!-- FOOTER -->
-    <footer class="bg-gray-600 text-white py-10 px-6 mt-10 text-sm md:text-base">
+    <footer class="bg-gray-600 text-white py-10 px-6 mt-10 text-sm md:text-base w-full bottom-0 fixed">
         <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-3">
 
             <!-- Kontak -->
