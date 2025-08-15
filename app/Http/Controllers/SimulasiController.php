@@ -40,7 +40,7 @@ class SimulasiController extends Controller
             }
         }
 
-        $hargaKendaraan = str_replace('.', '', $request->input('hargaKendaraan')); //
+        $hargaKendaraan = str_replace('.', '', $request->input('hargaKendaraan'));
         $maximalPencairan = str_replace('.', '', $request->input('maksPencairan'));
         $tenor = tenor::where('id', $request->tenor)->first();
         $biayaAdmin = biayaAdmin::where('id_tenor', $request->tenor)->first();
@@ -71,6 +71,45 @@ class SimulasiController extends Controller
         session(['simulasi_results' => $results]);
 
         return back()->with(['success' => true, 'results' => $results]);
+
+        // // kirim wa
+        // $curl = curl_init();
+
+        // curl_setopt_array($curl, array(
+        // CURLOPT_URL => 'https://api.fonnte.com/send',
+        // CURLOPT_RETURNTRANSFER => true,
+        // CURLOPT_ENCODING => '',
+        // CURLOPT_MAXREDIRS => 10,
+        // CURLOPT_TIMEOUT => 0,
+        // CURLOPT_FOLLOWLOCATION => true,
+        // CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        // CURLOPT_CUSTOMREQUEST => 'POST',
+        // CURLOPT_POSTFIELDS => array(
+        //     'target' => '85156320270',
+        //     'message' => 'Assalamulaikum..
+        //     Nama : pungky
+        //     whatapp : 089637587329
+        //     Nilai Pinjaman: Rp '.number_format($maximalPencairan, 0, ',', '.').'
+        //     Angsuran : Rp '.number_format($angsuran, 0, ',', '.').'
+        //     tenor : '.$tenor->tenor.' bulan',
+
+        // ),
+        // CURLOPT_HTTPHEADER => array(
+        //     'Authorization: 9GdkPSi2b2W9zzQ1X2NC' //change TOKEN to your actual token
+        // ),
+        // ));
+
+        // $response = curl_exec($curl);
+
+        // curl_close($curl);
+        // echo $response;
+
+
+
+        // return back()->with(['success' => true, 'results' => $results, 'resporns'=>$response]);
+        // echo "maksimal pencairan", $maximalPencairan, "<br>";
+        // echo "Pokok Pinjaman: Rp " . number_format($pv, 0, ',', '.'), "<br>";
+        // echo "Angsuran per bulan: Rp " . number_format($angsuran, 0, ',', '.');
     }
 
     public function dataCalonNasabah()
