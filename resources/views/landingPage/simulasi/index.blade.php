@@ -95,7 +95,7 @@
                         <option value="">--Pilih Jenis Kendaraan--
                         </option>
                         @foreach ($jnsKendaraan as $item)
-                        <option value="{{ $item->id }}">{{ $item->jns_kendaraan }}</option>
+                            <option value="{{ $item->id }}">{{ $item->jns_kendaraan }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -106,7 +106,8 @@
                         Merk Kendaraan
                     </label>
                     <select id="merk_kendaraan" name="merkKendaraan"
-                        class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200" @change="loadMerek()">
+                        class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200"
+                        @change="loadMerek()">
                         <option value="" {{ old('merekKendaraan') ? '' : 'selected' }}>--Pilih Merk Kendaraan--
                         </option>
                     </select>
@@ -118,7 +119,8 @@
                         Tipe Kendaraan
                     </label>
                     <select id="tipe_kendaraan" name="tipeKendaraan"
-                        class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200" @change="loadTipe()">
+                        class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200"
+                        @change="loadTipe()">
                         <option value="">--Pilih Tipe Kendaraan--
                         </option>
                     </select>
@@ -130,7 +132,8 @@
                         Tahun Kendaraan
                     </label>
                     <select id="thn_kendaraan" name="thnKendaraan"
-                        class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200" @change="loadTahun()">
+                        class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200"
+                        @change="loadTahun()">
                         <option value="">--Pilih Tahun Kendaraan--
                         </option>
                     </select>
@@ -154,7 +157,7 @@
                         class="w-full rounded-md border-gray-300 focus:border-yellow-400 focus:ring focus:ring-yellow-200">
                         <option value="" disabled {{ old('tenor') ? '' : 'selected' }}>--Pilih Tenor--</option>
                         @foreach ($tenor as $item)
-                        <option value="{{ $item->id }}">{{ $item->tenor }} {{ $item->satuan }}</option>
+                            <option value="{{ $item->id }}">{{ $item->tenor }} {{ $item->satuan }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -192,29 +195,29 @@
                     </div>
                 </div>
             </div>
-                <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                    <div class="text-center">
-                        <p class="text-lg font-bold">Angsuran per Bulan</p>
-                        <p class="text-2xl font-bold text-yellow-600 mt-2">Rp. {{ session('results.angsuran_per_bulan') }}
-                        </p>
-                    </div>
+            <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                <div class="text-center">
+                    <p class="text-lg font-bold">Angsuran per Bulan</p>
+                    <p class="text-2xl font-bold text-yellow-600 mt-2">Rp. {{ session('results.angsuran_per_bulan') }}
+                    </p>
                 </div>
+            </div>
             </div>
 
             <div class="mt-6 text-center">
-                <a href="https://api.whatsapp.com/send?phone=6285156320270&text=Halo%20saya%20ingin%20bertanya%20tentang%20simulasi%20kredit"
-                    class="inline-block px-6 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-md shadow-md transition"
+                <a href="/simulasi/dataCalonPeminjam"
+                    class="inline-block px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md shadow-md transition"
                     target="_blank">
-                    Konsultasi via WhatsApp
+                    Ajukan Pinjaman
                 </a>
             </div>
-        </div>
+            </div>
         @endif
     </main>
 
 
     <!-- FOOTER -->
-    <footer class="bg-gray-600 text-white py-10 px-6 mt-10 text-sm md:text-base w-full bottom-0 fixed">
+    <footer class="bg-gray-600 text-white py-10 px-6 mt-10 text-sm md:text-base w-full bottom-0 relative">
         <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-3">
 
             <!-- Kontak -->
@@ -224,7 +227,7 @@
                         class="w-12 h-12 object-contain" />
                     <div>
                         <p class="font-bold">Call Center Adira</p>
-                        <p>08xxxxxxxxxx</p>
+                        <p>0821 1375 1469</p>
                     </div>
                 </div>
                 <div class="mt-6">
@@ -255,7 +258,8 @@
                         class="w-24 mx-auto md:mx-0" />
                     <img src="{{ asset('landing_page/blob.png')}}" alt="Blob" class="w-24 mx-auto md:mx-0" />
                 </div>
-                <p class="text-sm">Bambang Marimo - ID AXI 01320102302</p>
+                <p class="text-sm">Ibnu Hajar - ID AXI 010525001658</p>
+                <p class="text-sm">Bahrudin - ID AXI 010525001635</p>
             </div>
 
         </div>
@@ -277,7 +281,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             function parseRupiahToNumber(rupiah) {
                 return parseInt(rupiah.replace(/\./g, '').replace(/[^0-9]/g, '')) || 0;
@@ -294,7 +298,7 @@
             }
 
             // Cek jika input maks_pencairan diubah manual
-            $('#maks_pencairan').on('input', function() {
+            $('#maks_pencairan').on('input', function () {
                 let harga = parseRupiahToNumber($('#harga_kendaraan').val());
                 let batasMaksimal = Math.floor(harga * 0.8);
                 let nilaiInput = parseRupiahToNumber($(this).val());
@@ -314,17 +318,17 @@
                     $.ajax({
                         url: `/merek-kendaraan/${jns}`,
                         method: 'GET',
-                        success: function(data) {
+                        success: function (data) {
                             let $merkSelect = $('#merk_kendaraan');
                             $merkSelect.empty().append('<option value="">--Pilih Merk Kendaraan--</option>');
 
                             if (data.length > 0) {
-                                data.forEach(function(item) {
+                                data.forEach(function (item) {
                                     $merkSelect.append(`<option value="${item.id}">${item.merek_kendaraan}</option>`);
                                 });
                             }
                         },
-                        error: function() {
+                        error: function () {
                             alert('Gagal mengambil data merek kendaraan.');
                         }
                     });
@@ -340,17 +344,17 @@
                     $.ajax({
                         url: `/tipe-kendaraan/${merk}`,
                         method: 'GET',
-                        success: function(data) {
+                        success: function (data) {
                             let $tipeSelect = $('#tipe_kendaraan');
                             $tipeSelect.empty().append('<option value="">--Pilih Tipe Kendaraan--</option>');
 
                             if (data.length > 0) {
-                                data.forEach(function(item) {
+                                data.forEach(function (item) {
                                     $tipeSelect.append(`<option value="${item.id}">${item.tipe_kendaraan}</option>`);
                                 });
                             }
                         },
-                        error: function() {
+                        error: function () {
                             alert('Gagal mengambil data tipe kendaraan.');
                         }
                     });
@@ -366,17 +370,17 @@
                     $.ajax({
                         url: `/tahun-kendaraan/${tipe}`,
                         method: 'GET',
-                        success: function(data) {
+                        success: function (data) {
                             let $tahunKendaraan = $('#thn_kendaraan');
                             $tahunKendaraan.empty().append('<option value="">--Pilih Tahun Kendaraan--</option>');
 
                             if (data.length > 0) {
-                                data.forEach(function(item) {
+                                data.forEach(function (item) {
                                     $tahunKendaraan.append(`<option value="${item.id}">${item.tahun_kendaran}</option>`);
                                 });
                             }
                         },
-                        error: function() {
+                        error: function () {
                             alert('Gagal mengambil data tahun kendaraan.');
                         }
                     });
@@ -397,7 +401,7 @@
                     $.ajax({
                         url: `/harga-kendaraan/${jns}/${merk}/${tipe}/${thn}`,
                         method: 'GET',
-                        success: function(data) {
+                        success: function (data) {
                             if (data && data.harga) {
                                 let harga = data.harga;
                                 $('#harga_kendaraan').val(formatRupiah(harga));

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('cln_nasabah', function (Blueprint $table) {
             $table->id();
             $table->decimal('jumlah_pinjaman',15,2);
+            $table->string('namaktp'); // Nama KTP
             $table->string('nik',16); // No KTP
             $table->string('nohp');
             $table->string('email');
@@ -35,7 +36,7 @@ return new class extends Migration
             $table->string('plat_kendaraan');
             $table->string('foto_ktp');
             $table->string('foto_stnk');
-            $table->string('voucher');
+            $table->string('voucher')->nullable();
             $table->timestamps();
         });
     }

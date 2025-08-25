@@ -9,6 +9,7 @@ class clnNasabah extends Model
     protected $table = 'cln_nasabah';
     protected $fillable = [
         'jumlah_pinjaman',
+        'namaktp',
         'nik',
         'nohp',
         'email',

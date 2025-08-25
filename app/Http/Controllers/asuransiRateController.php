@@ -21,8 +21,8 @@ class asuransiRateController extends Controller
                 ->orWhere('satuan', 'like', "%{$search}%");
         }
 
-        $asuransiRate = $query->paginate(10); 
-        return view('admin.asuransiRate.index',compact('asuransiRate'));
+        $asuransiRate = $query->paginate(10);
+        return view('admin.asuransiRate.index', compact('asuransiRate'));
     }
 
     /**
@@ -31,7 +31,7 @@ class asuransiRateController extends Controller
     public function create()
     {
         return view('admin.asuransiRate.create');
-        
+
     }
 
     /**
@@ -42,14 +42,14 @@ class asuransiRateController extends Controller
         $request->validate([
             'rate' => 'required',
             'satuan' => 'required',
-          
+
         ]);
-        $dataJurusan = asuransiRate::create([           
+        $dataJurusan = asuransiRate::create([
             'asuransi_rate' => $request->input('rate'),
             'satuan' => $request->input('satuan'),
         ]);
         return redirect()->route('asuransiRate.index')
-                ->with('success', 'Data Insurance Rate Berhasil Ditambahkan');
+            ->with('success', 'Data Insurance Rate Berhasil Ditambahkan');
     }
 
     /**
@@ -65,9 +65,9 @@ class asuransiRateController extends Controller
      */
     public function edit(string $id)
     {
-        $asuransiRate = asuransiRate::where('id','=',$id)
-        ->get();
-        return view('admin.asuransiRate.edit',compact('asuransiRate'));
+        $asuransiRate = asuransiRate::where('id', '=', $id)
+            ->get();
+        return view('admin.asuransiRate.edit', compact('asuransiRate'));
     }
 
     /**
@@ -78,13 +78,13 @@ class asuransiRateController extends Controller
         $request->validate([
             'rate' => 'required',
             'satuan' => 'required',
-          
+
         ]);
         $asuransiRate = asuransiRate::findOrFail($id);
         $asuransiRate->update([
             'asuransi_rate' => $request->input('rate'),
             'satuan' => $request->input('satuan'),
-        ]);        
+        ]);
 
         return redirect()->route('asuransiRate.index')
             ->with('success', 'Data Insurance Rate Berhasil Di Update');
@@ -97,8 +97,8 @@ class asuransiRateController extends Controller
     {
         $asuransiRate = asuransiRate::findOrFail($id);
         $asuransiRate->delete();
-        
+
         return redirect()->route('asuransiRate.index')
-        ->with('success', 'Data Insurance Rate Berhasil Di Hapus');
+            ->with('success', 'Data Insurance Rate Berhasil Di Hapus');
     }
 }

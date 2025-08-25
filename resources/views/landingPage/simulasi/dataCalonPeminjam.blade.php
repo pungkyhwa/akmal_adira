@@ -76,11 +76,75 @@
 
     <!-- MAIN CONTENT -->
     <main class="font-serif mt-10 max-w-5xl px-6 mx-auto">
+        <!-- Modal -->
+        <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+
+            <!-- Konten Modal -->
+            <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full p-6 text-center relative">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Penting!</h2>
+
+                <!-- Scrollable Content -->
+                <div class="text-gray-600 text-sm mb-6 max-h-96 overflow-y-auto text-left space-y-4">
+                    <p>
+                        <strong>KEBIJAKAN PRIVASI & SYARAT DAN KETENTUAN UMUM</strong><br>
+                        DENGAN MENDAFTARKAN DIRI ANDA DI LAYANAN DICICILAJA.COM INI, BERARTI ANDA,
+                        SELAKU PEMILIK AKUN / CALON NASABAH MENYETUJUI SYARAT DAN KETENTUAN DI BAWAH INI
+                        (UNTUK SELANJUTNYA DISEBUT “SYARAT DAN KETENTUAN”).
+                    </p>
+                    <p>
+                        Dicicilaja.com adalah website yang digunakan dan dikelola oleh PT Adira Dinamika Multi
+                        Finance Tbk, (“Adira Finance”) sebagai pendukung usaha dalam memberikan fasilitas pembiayaan.
+                    </p>
+                    <p>
+                        Pemilik akun/calon nasabah adalah pihak yang mendaftarkan diri di dicicilaja.com untuk
+                        menggunakan layanan yang disediakan oleh dicicilaja.com.
+                    </p>
+                    <p>
+                        Adira Finance berhak untuk melakukan pembekuan dan/atau penutupan Akun tanpa syarat apabila
+                        ditemukan hal-hal yang melanggar hukum positif yang berlaku di Indonesia, dan/atau melanggar
+                        asusila, norma dan kewajaran berdasarkan pertimbangan dan penilaian sendiri dari Adira Finance.
+                    </p>
+                    <p>
+                        Adira Finance dapat membantu pemilik akun/calon nasabah untuk melakukan pemblokiran Akun
+                        berdasarkan permintaan pemilik akun/calon nasabah dan membantu pemilik akun/calon nasabah untuk
+                        mengembalikan Akun kepada Pemilik Akun.
+                    </p>
+                    <p>
+                        Pemilik akun/calon nasabah harus mematuhi prosedur, instruksi, panduan dan/atau pedoman yang
+                        ditetapkan oleh Adira Finance dalam website dicicilaja.com dari waktu ke waktu.
+                    </p>
+                    <p>
+                        Segala penyalahgunaan User ID dan Password Dicicilaja.com merupakan tanggung jawab pemilik
+                        akun/calon nasabah. pemilik akun/calon nasabah membebaskan Adira Finance dari segala tuntutan
+                        yang mungkin timbul, baik dari pihak lain maupun pemilik akun/calon nasabah sendiri sebagai
+                        akibat penyalahgunaan User ID dan Password.
+                    </p>
+                    <p>
+                        Pemilik akun / calon nasabah menjamin bahwa data yang diisi pada Website Dicicilaja | Solusi
+                        Semua Kebutuhan Anda diberikan secara benar dan sah kepada Adira Finance
+                    </p>
+                    <p>
+                        Pemilik akun / calon nasabah setuju bahwa seluruh data yang diisi oleh Pemilik Akun pada website
+                        Dicicilaja
+                    </p>
+                    <p>
+                        <em>“Adira Finance Terdaftar dan Diawasi oleh OJK”</em>
+                    </p>
+                </div>
+
+                <!-- Tombol -->
+                <button id="closeModal" class="w-full px-6 py-2 bg-yellow-500 hover:bg-yellow-600
+                        text-white font-semibold rounded-lg shadow-md transition">
+                    Saya Mengerti
+                </button>
+            </div>
+        </div>
+
         <h1 class="text-2xl font-bold border-b-4 border-yellow-300 pb-4 text-gray-800">
             Jenis Program Cicilan :
         </h1>
 
-        <form action="{{ route('simulasi.storeDataCalonNasabah')}}" method="POST"
+        <form action="{{ route('simulasi.storeDataCalonNasabah')}}" method="POST" enctype="multipart/form-data"
             class="mt-8 bg-white shadow-lg rounded-lg p-6 space-y-6 border border-gray-200">
             @csrf
 
@@ -92,7 +156,8 @@
                     </label>
                     <input type="text"
                         class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3"
-                        name="jumlah_pinjaman" id="jumlah_pinjaman" value="Rp. 0">
+                        name="jumlah_pinjaman" id="jumlah_pinjaman" value="{{ $jumlahPinjaman['maksimal_pencairan']}}"
+                        readonly>
                 </div>
             </div>
 
@@ -108,12 +173,12 @@
                 </div>
 
                 <div>
-                    <label for="noktp" class="flex text-sm font-semibold text-gray-700 mb-1 gap-2">
+                    <label for="nik" class="flex text-sm font-semibold text-gray-700 mb-1 gap-2">
                         No KTP <p class="text-red-500">*</p>
                     </label>
                     <input type="text"
                         class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3"
-                        id="noktp" name="noktp">
+                        id="nik" name="nik">
                 </div>
 
                 <div>
@@ -207,42 +272,18 @@
 
             </div>
 
-            <h3 class="text-lg text-yellow-400 font-bold border-b-2 border-yellow-300">Informasi Jaminan</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                    <label for="merk_kendaraan" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1">
-                        Merk Kendaraan <p class="text-red-500">*</p>
-                    </label>
-                    <select id="merk_kendaraan" type="text" name="merk_kendaraan" required
-                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
-                    <option value="" disabled {{old('merk_kendaraan') ? '' : 'selected'}}>Pilih Merk</option>
-                    @foreach ($merkKendaraan as $item)
-                        <option value="{{$item->id}}" {{ old('merk_kendaraan') == $item->id ? 'selected' : ''}}>{{$item->merek_kendaraan}}</option>
-                    @endforeach
-                    </select>
-                </div>
-                <div>
-                    <label for="thn_kendaraan" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1">
-                        Tahun Kendaraan<p class="text-red-500">*</p>
-                    </label>
-                    <select id="thn_kendaraan" type="text" name="thn_kendaraan" required
-                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
-                    <option value="">Contoh: 2016</option>
-                    </select>
-                </div>
-            </div>
-
             <h3 class="text-yellow-400 text-lg font-bold border-b-2 border-yellow-300">Informasi Pinjaman</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                     <label for="tenor" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1">
                         Tenor <p class="text-red-500">*</p>
                     </label>
-                    <select id="tenor" type="text" name="tenor" required
+                    <select id="tenor" name="tenor" required
                         class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
                     <option value="" disabled {{old('tenor') ? '' : 'selected'}}>Pilih Opsi</option>
                     @foreach ($tenor as $item)
-                        <option value="{{ $item->id }}" {{old('tenor') == $item->id ? 'selected' : ''}}>{{$item->tenor}} {{$item->satuan}}
+                        <option value="{{ $item->id }}" {{old('tenor') == $item->id ? 'selected' : ''}}>{{$item->tenor}}
+                            {{$item->satuan}}
                         </option>
                     @endforeach
                     </select>
@@ -252,9 +293,11 @@
                     <label for="npwp" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1">
                         Punya NPWP? <p class="text-red-500">*</p>
                     </label>
-                    <select id="npwp" type="text" name="npwp"
+                    <select id="npwp" name="npwp"
                         class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
-                    <option value=""></option>
+                    <option value="" disabled {{ old('npwp') ? '' : 'selected'}}>Pilih Opsi</option>
+                    <option value="ya">Ya</option>
+                    <option value="tidak">Tidak</option>
                     </select>
                 </div>
 
@@ -262,9 +305,18 @@
                     <label for="pekerjaan" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1">
                         Pekerjaan? <p class="text-red-500">*</p>
                     </label>
-                    <select id="pekerjaan" type="text" name="pekerjaan" required
+                    <select id="pekerjaan" name="pekerjaan" required
                         class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
-                    <option value=""></option>
+                    <option value="" disabled {{ old('pekerjaan') ? '' : 'selected'}}>Pilih Opsi</option>
+                    <option value="Peg. Negeri">Peg. Negeri</option>
+                    <option value="TNI / Polisi">TNI / Polisi</option>
+                    <option value="Peg. Swasta Formal">Peg. Swasta Formal</option>
+                    <option value="Peg. Swasta Non Formal">Peg. Swasta Non Formal</option>
+                    <option value="Wiraswasta Formal">Wiraswasta Formal</option>
+                    <option value="Wiraswasta Non Formal">Wiraswasta Non Formal</option>
+                    <option value="Profesional">Profesional</option>
+                    <option value="Lain-Lain">Lain-Lain</option>
+                    <option value="Pep & High Risk Cust">Pep & High Risk Cust</option>
                     </select>
                 </div>
 
@@ -272,8 +324,20 @@
                     <label for="lama_bekerja" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1">
                         Lama Bekerja <p class="text-red-500">*</p>
                     </label>
-                    <input id="lama_bekerja" type="text" name="lama_bekerja" required
-                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
+                    {{-- 0 - 2 tahun --}}
+                    {{-- 3 - 5 tahun --}}
+                    {{-- > 5 tahun --}}
+                    {{-- <input id="lama_bekerja" type="text" name="lama_bekerja" required
+                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3" />
+                    --}}
+                    <select name="lama_bekerja" id="lama_bekerja"
+                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200"
+                        required>
+                        <option value="" disabled {{ old('lama_bekerja') ? '' : 'selected'}}>Pilih Opsi</option>
+                        <option value="0 - 2 tahun">0 - 2 tahun</option>
+                        <option value="3 - 5 tahun">3 - 5 tahun</option>
+                        <option value="> 5 tahun">> 5 tahun</option>
+                    </select>
                 </div>
             </div>
 
@@ -283,7 +347,7 @@
                     <label for="plat_kendaraan" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1">
                         Plat Kendaaraan <p class="text-red-500">*</p></label>
                     <input type="text" required id="plat_kendaraan" name="plat_kendaraan"
-                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200">
+                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3">
                 </div>
             </div>
 
@@ -293,35 +357,40 @@
                     <div>
                         <label for="foto_ktp" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1"> Foto KTP
                         </label>
-                        <input type="file" name="foto_kip" id="foto_kip"
-                            class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200">
+                        <input type="file" name="foto_ktp" id="foto_ktp"
+                            class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3">
                     </div>
 
                     <div>
                         <label for="foto_stnk" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1"> Foto
                             BPKB/STNK </label>
                         <input type="file" id="foto_stnk" name="foto_stnk"
-                            class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200">
+                            class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3">
                     </div>
-                </div>
 
-                <div>
-                    <label for="voucher">Voucher Code</label>
-                    <input type="text"
-                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200"
-                        id="voucher" name="voucher">
+                    <div>
+                        <label for="foto_stnk" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1"> Foto
+                            Kartu Keluarga </label>
+                        <input type="file" id="foto_kartu_keluarga" name="foto_kk"
+                            class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3">
+                    </div>
                 </div>
             </div>
 
-            <div class="flex gap-2">
-                <input type="checkbox">
-                <label for="">Dengan ini Saya secara sadar telah membaca dan menyetujui Syarat & ketentuan yang
-                    berlaku</label>
+            <div class="flex flex-col gap-2">
+                <div class="flex gap-2 items-start">
+                    <input type="checkbox" id="syaratCheckbox" required>
+                    <label for="syaratCheckbox">
+                        Dengan ini Saya secara sadar telah membaca dan menyetujui
+                        <span class="font-semibold">Syarat & Ketentuan</span> yang berlaku
+                    </label>
+                </div>
             </div>
 
             <!-- Tombol Submit -->
             <div class="pt-4 text-center">
-                <button type="submit"
+                <!-- Button untuk buka modal -->
+                <button
                     class="w-full sm:w-auto px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold rounded-md shadow-md transition">
                     Ajukan Cicilan
                 </button>
@@ -341,7 +410,7 @@
                         class="w-12 h-12 object-contain" />
                     <div>
                         <p class="font-bold">Call Center Adira</p>
-                        <p>08xxxxxxxxxx</p>
+                        <p>0821 1375 1469</p>
                     </div>
                 </div>
                 <div class="mt-6">
@@ -372,7 +441,8 @@
                         class="w-24 mx-auto md:mx-0" />
                     <img src="{{ asset('landing_page/blob.png')}}" alt="Blob" class="w-24 mx-auto md:mx-0" />
                 </div>
-                <p class="text-sm">Bambang Marimo - ID AXI 01320102302</p>
+                <p class="text-sm">Ibnu Hajar - ID AXI 010525001658</p>
+                <p class="text-sm">Bahrudin - ID AXI 010525001635</p>
             </div>
 
         </div>
@@ -390,6 +460,45 @@
                 const numberValue = parseInt(value, 10);
                 $(this).val('Rp. ' + new Intl.NumberFormat('id-ID').format(numberValue));
             }).trigger('input'); // Format nilai awal
+        });
+    </script>
+
+    <script>
+        function openModal() {
+            const checkbox = document.getElementById('syaratCheckbox');
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (!checkbox.checked) {
+                errorMsg.classList.remove('hidden'); // tampilkan error
+                return;
+            }
+
+            errorMsg.classList.add('hidden'); // sembunyikan error kalau sudah dicentang
+            document.getElementById('myModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').classList.add('hidden');
+        }
+    </script>
+
+    <script>
+        const menuBtn = document.getElementById("menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("max-h-0");
+            mobileMenu.classList.toggle("max-h-40");
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = document.getElementById("modal");
+            const closeBtn = document.getElementById("closeModal");
+            closeBtn.addEventListener("click", function () {
+                modal.style.display = "none";
+            });
         });
     </script>
 </body>

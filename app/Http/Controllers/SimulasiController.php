@@ -14,6 +14,8 @@ use App\Models\tahunKendaraan;
 use App\Models\tenor;
 use App\Models\tipeKendaraan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SimulasiController extends Controller
 {
@@ -115,10 +117,12 @@ class SimulasiController extends Controller
     public function dataCalonNasabah()
     {
         try {
+            $jumlahPinjaman = session('simulasi_results');
+            // dd($jumlahPinjaman['maksimal_pencairan']);
             $tenor = tenor::get();
             $merkKendaraan = merekKendaraan::get();
             $tahunKendaraan = tahunKendaraan::get();
-            return view('landingPage.simulasi.dataCalonPeminjam', compact('tenor', 'merkKendaraan'));
+            return view('landingPage.simulasi.dataCalonPeminjam', compact('tenor', 'merkKendaraan','jumlahPinjaman'));
         } catch (\Throwable $th) {
             return back()->with('error', 'Terjadi Kesalahan');
         }
@@ -126,36 +130,44 @@ class SimulasiController extends Controller
 
     public function storeDataCalonNasabah(Request $request)
     {
-        $request->validate([
-            'jumlah_pinjaman' => 'required',
-            'nik' => 'required',
-            'nohp' => 'required',
-            'email' => 'required',
-            'provinsi' => 'required',
-            'kota' => 'required',
-            'kecamatan' => 'required',
-            'kelurahan' => 'required',
-            'alamat' => 'required',
-            'tmp_lahir' => 'required',
-            'tgl_lahir' => 'required',
-            'nm_ibu' => 'required',
-            'tgl_janji' => 'required',
-            'merk_kendaraan' => 'required',
-            'thn_kendaraan' => 'required',
-            'tenor' => 'required',
-            'pekerjaan' => 'required',
-            'lama_bekerja' => 'required',
-            'plat_kendaraan' => 'required',
-            'foto_ktp' => 'required',
-            'foto_stnk' => 'required',
-            'voucher' => 'required',
-        ]);
-
         try {
+
+            $request->validate([
+                'jumlah_pinjaman' => 'required',
+                'namaktp' => 'required',
+                'nik' => 'required',
+                'nohp' => 'required',
+                'email' => 'required',
+                'provinsi' => 'required',
+                'kota' => 'required',
+                'kecamatan' => 'required',
+                'kelurahan' => 'required',
+                'alamat' => 'required',
+                'tmp_lahir' => 'required',
+                'tgl_lahir' => 'required',
+                'nm_ibu' => 'required',
+                'tgl_janji' => 'required',
+                'merk_kendaraan' => 'required',
+                'thn_kendaraan' => 'required',
+                'tenor' => 'required',
+                'pekerjaan' => 'required',
+                'lama_bekerja' => 'required',
+                'plat_kendaraan' => 'required',
+                'foto_ktp' => 'required',
+                'foto_stnk' => 'required',
+            ]);
+
+            $fotoKtp = $request->file('foto_ktp')->hashName();
+            $request->file('foto_ktp')->move(public_path('fotoKtp'), $fotoKtp);
+
+            $fotoStnkBpkb = $request->file('foto_stnk')->hashName();
+            $request->file('foto_stnk')->move(public_path('fotoStnkBpkb'), $fotoStnkBpkb);
+
 
             $jumlahPinjaman = str_replace(['Rp. ', '.'], '', $request->jumlah_pinjaman);
             clnNasabah::create([
                 'jumlah_pinjaman' => $jumlahPinjaman,
+                'namaktp' => $request->namaktp,
                 'nik' => $request->nik,
                 'nohp' => $request->nohp,
                 'email' => $request->email,
@@ -174,15 +186,15 @@ class SimulasiController extends Controller
                 'pekerjaan' => $request->pekerjaan,
                 'lama_bekerja' => $request->lama_bekerja,
                 'plat_kendaraan' => $request->plat_kendaraan,
-                'foto_ktp' => $request->foto_ktp,
-                'foto_stnk' => $request->foto_stnk,
+                'foto_ktp' => $fotoKtp,
+                'foto_stnk' => $fotoStnkBpkb,
                 'voucher' => $request->voucher,
             ]);
+
+            return redirect()->route('simulasi.index');
         } catch (\Throwable $th) {
             dd($th->getMessage());
             // return back()->with('error', 'Terjadi Kesalahan');
         }
     }
-
-
 }
