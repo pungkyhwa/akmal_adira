@@ -76,162 +76,172 @@ class SimulasiController extends Controller
             'angsuran_per_bulan' => number_format($angsuran, 0, ',', '.'),
             'hargaKendaraan' => $hargaKendaraan
         ];
-        // kirim wa
-        $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://api.fonnte.com/send',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => array(
-            'target' => '82113751469',
-            'message' => 'Assalamulaikum..
-            Nama : pungky
-            whatapp : 089637587329
 
-            Harga Kendaraan = '.number_format($hargaKendaraan, 0, ',', '.').';
-            Terima Nasabah = '.number_format($terima_nasabah, 0, ',', '.').';
-            Plafon Nasabah = '.number_format($plofon_pinjaman, 0, ',', '.').';
-            Tenor dipilih = '.$pilih_tenor.' bulan;
-            Biaya Admin = '.number_format($biayaAdmin, 0, ',', '.').';
-            fee Axi = '.number_format($biayaMitra, 0, ',', '.').';
-            efektif rate = '.$efektif_rate.';
-            dp = '.number_format($dp, 0, ',', '.').';
-            persen dp = '.$persen_dp.';
-            Pokok Hutang = '.number_format($pokok_hutang, 0, ',', '.').';
-            asuransi rate = '.$rateAsuransi.' nominal = '.number_format($nominal_rate_asuransi, 0, ',', '.').';
-            Total Pokok Hutang = '.number_format($total_pokok_hutang, 0, ',', '.').';
-            Persen Bunga = '.$persen_bunga.';
-            Nominal Bunga = '.number_format($nominal_bunga, 0, ',', '.').';
-            Total Hutang = '.number_format($total_hutang, 0, ',', '.').';
-            Angsuran = '.number_format($angsuran, 0, ',', '.').'
-            ',
-          
-        ),
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: 9GdkPSi2b2W9zzQ1X2NC' //change TOKEN to your actual token
-        ),
-        ));
+        function hitungMaksimalTerimaNasabah($hargaKendaraan, $biayaAdmin, $biayaMitra, $minPersenDP = 21)
+        {
+            // Hitung minimal DP
+            $dpMinimal = ($minPersenDP / 100) * $hargaKendaraan;
+            // Hitung plafon pinjaman maksimal
+            $plafonMaksimal = $hargaKendaraan - $dpMinimal;
+            // Hitung maksimal terima nasabah
+            $maksTerimaNasabah = $plafonMaksimal - ($biayaAdmin + $biayaMitra);
+            // Jika hasil negatif, otomatis 0 (tidak bisa dicairkan)
+            return max(0, $maksTerimaNasabah);
+        }
 
-        // // kirim wa
-        // $curl = curl_init();
 
-        // curl_setopt_array($curl, array(
-        // CURLOPT_URL => 'https://api.fonnte.com/send',
-        // CURLOPT_RETURNTRANSFER => true,
-        // CURLOPT_ENCODING => '',
-        // CURLOPT_MAXREDIRS => 10,
-        // CURLOPT_TIMEOUT => 0,
-        // CURLOPT_FOLLOWLOCATION => true,
-        // CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        // CURLOPT_CUSTOMREQUEST => 'POST',
-        // CURLOPT_POSTFIELDS => array(
-        //     'target' => '85156320270',
-        //     'message' => 'Assalamulaikum..
-        //     Nama : pungky
-        //     whatapp : 089637587329
-        //     Nilai Pinjaman: Rp '.number_format($maximalPencairan, 0, ',', '.').'
-        //     Angsuran : Rp '.number_format($angsuran, 0, ',', '.').'
-        //     tenor : '.$tenor->tenor.' bulan',
 
-        // ),
-        // CURLOPT_HTTPHEADER => array(
-        //     'Authorization: 9GdkPSi2b2W9zzQ1X2NC' //change TOKEN to your actual token
-        // ),
-        // ));
 
-        // $response = curl_exec($curl);
+        // cek persen dp
+        if($persen_dp < 21.00){
+            $minPersenDP = 21;
+            echo "ditolak <br>";
+            $maksimalTerima = hitungMaksimalTerimaNasabah($hargaKendaraan, $biayaAdmin, $biayaMitra, $minPersenDP);
+            echo $maksimalTerima;
+        }else{
+            echo "harga kendaraan = ".$hargaKendaraan."<br>";   
+            echo "terima nasabah = ".$terima_nasabah."<br>";
+            echo "plafon pinjaman = ".$plofon_pinjaman."<br>";
+            echo "dp = ".$dp."<br>";
+            echo "persen dp = ".$persen_dp."<br>";            
+            echo "angsuran = ".$angsuran."<br>";
 
-        // curl_close($curl);
-        // echo $response;
+            // kirim wa
+            $curl = curl_init();
 
-        curl_close($curl);
-        return back()->with(['success' => true, 'results' => $results]);
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://api.fonnte.com/send',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array(
+                    'target' => '82113751469',
+                    'message' => 'Assalamulaikum..
+                    Nama : pungky
+                    whatapp : 089637587329
 
-    }
-    // public function storeSimulasi(Request $request)
-    // {
+                    Harga Kendaraan = '.number_format($hargaKendaraan, 0, ',', '.').';
+                    Terima Nasabah = '.number_format($terima_nasabah, 0, ',', '.').';
+                    Plafon Nasabah = '.number_format($plofon_pinjaman, 0, ',', '.').';
+                    Tenor dipilih = '.$pilih_tenor.' bulan;
+                    Biaya Admin = '.number_format($biayaAdmin, 0, ',', '.').';
+                    fee Axi = '.number_format($biayaMitra, 0, ',', '.').';
+                    efektif rate = '.$efektif_rate.';
+                    dp = '.number_format($dp, 0, ',', '.').';
+                    persen dp = '.$persen_dp.';
+                    Pokok Hutang = '.number_format($pokok_hutang, 0, ',', '.').';
+                    asuransi rate = '.$rateAsuransi.' nominal = '.number_format($nominal_rate_asuransi, 0, ',', '.').';
+                    Total Pokok Hutang = '.number_format($total_pokok_hutang, 0, ',', '.').';
+                    Persen Bunga = '.$persen_bunga.';
+                    Nominal Bunga = '.number_format($nominal_bunga, 0, ',', '.').';
+                    Total Hutang = '.number_format($total_hutang, 0, ',', '.').';
+                    Angsuran = '.number_format($angsuran, 0, ',', '.').'
+                    ',
+                
+                ),
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: 9GdkPSi2b2W9zzQ1X2NC' //change TOKEN to your actual token
+                ),
+            ));
+            $response = curl_exec($curl);
 
-    //     function pmt($rate, $nper, $pv, $fv = 0, $type = 0)
-    //     {
-    //         if ($rate == 0) {
-    //             return -($pv + $fv) / $nper;
-    //         } else {
-    //             return -($rate * ($fv + $pv * pow(1 + $rate, $nper))) /
-    //                 ((1 + $rate * $type) * (pow(1 + $rate, $nper) - 1));
-    //         }
-    //     }
+            return back()->with(['success' => true, 'results' => $results, 'resporns'=>$response]);
 
-    //     $hargaKendaraan = str_replace('.', '', $request->input('hargaKendaraan')); 
-    //     $maximalPencairan = str_replace('.', '', $request->input('maksPencairan'));
-    //     $tenor = tenor::where('id', $request->tenor)->first();
-    //     $biayaAdmin = biayaAdmin::where('id_tenor', $request->tenor)->first();
-    //     $biayaMitra = biayaMitra::where('id_tenor', $request->tenor)->first();
-    //     $rate = rate::where('id', $biayaAdmin->id_rate)->first();
-    //     $uangMuka = $hargaKendaraan - $maximalPencairan;
-    //     $rateAsuransi = asuransiRate::where('id', $tenor->id_asuransi_rate)->first();
-    //     $biayaAsuransi = $rateAsuransi;
+            
+        }
 
-    //     // Hitung PV (pokok pinjaman bersih)
-    //     $pv = $hargaKendaraan - ($uangMuka - $biayaAdmin->biaya_admin - $biayaMitra->biaya_mitra - $biayaAsuransi->asuransi_rate);
-
-    //     // Hitung bunga bulanan
-    //     $rateBulanan = $rate->rate / 1200;
-
-    //     // Hitung angsuran
-    //     $angsuran = pmt($rateBulanan, $tenor->tenor, -$pv);
-    //     $angsuran = ceil($angsuran / 1000) * 1000;
-
-    //     // Output hasil
-    //     $results = [
-    //         'maksimal_pencairan' => number_format($maximalPencairan, 0, ',', '.'),
-    //         'pokok_pinjaman' => number_format($pv, 0, ',', '.'),
-    //         'angsuran_per_bulan' => number_format($angsuran, 0, ',', '.'),
-    //         'hargaKendaraan' => $hargaKendaraan
-    //     ];
-
-    //     // kirim wa
-    //     $curl = curl_init();
-
-    //     curl_setopt_array($curl, array(
-    //     CURLOPT_URL => 'https://api.fonnte.com/send',
-    //     CURLOPT_RETURNTRANSFER => true,
-    //     CURLOPT_ENCODING => '',
-    //     CURLOPT_MAXREDIRS => 10,
-    //     CURLOPT_TIMEOUT => 0,
-    //     CURLOPT_FOLLOWLOCATION => true,
-    //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    //     CURLOPT_CUSTOMREQUEST => 'POST',
-    //     CURLOPT_POSTFIELDS => array(
-    //         'target' => '82113751469',
-    //         'message' => 'Assalamulaikum..
-    //         Nama : pungky
-    //         whatapp : 089637587329
-    //         Nilai Pinjaman: Rp '.number_format($maximalPencairan, 0, ',', '.').'
-    //         Angsuran : Rp '.number_format($angsuran, 0, ',', '.').'
-    //         tenor : '.$tenor->tenor.' bulan',
-          
-    //     ),
-    //     CURLOPT_HTTPHEADER => array(
-    //         'Authorization: 9GdkPSi2b2W9zzQ1X2NC' //change TOKEN to your actual token
-    //     ),
-    //     ));
-
-    //     $response = curl_exec($curl);
-
-    //     curl_close($curl);
-    //     // echo $response;
         
+        // echo "maksimal pencairan", $maximalPencairan, "<br>";
+        // echo "Pokok Pinjaman: Rp " . number_format($pv, 0, ',', '.'), "<br>";
+        // echo "Angsuran per bulan: Rp " . number_format($angsuran, 0, ',', '.');
+    }
+
+    public function dataCalonNasabah()
+    {
+        try {
+            $jumlahPinjaman = session('simulasi_results');
+            // dd($jumlahPinjaman['maksimal_pencairan']);
+            $tenor = tenor::get();
+            $merkKendaraan = merekKendaraan::get();
+            $tahunKendaraan = tahunKendaraan::get();
+            return view('landingPage.simulasi.dataCalonPeminjam', compact('tenor', 'merkKendaraan','jumlahPinjaman'));
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Terjadi Kesalahan');
+        }
+    }
+
+    public function storeDataCalonNasabah(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'jumlah_pinjaman' => 'required',
+                'namaktp' => 'required',
+                'nik' => 'required',
+                'nohp' => 'required',
+                'email' => 'required',
+                'provinsi' => 'required',
+                'kota' => 'required',
+                'kecamatan' => 'required',
+                'kelurahan' => 'required',
+                'alamat' => 'required',
+                'tmp_lahir' => 'required',
+                'tgl_lahir' => 'required',
+                'nm_ibu' => 'required',
+                'tgl_janji' => 'required',
+                'merk_kendaraan' => 'required',
+                'thn_kendaraan' => 'required',
+                'tenor' => 'required',
+                'pekerjaan' => 'required',
+                'lama_bekerja' => 'required',
+                'plat_kendaraan' => 'required',
+                'foto_ktp' => 'required',
+                'foto_stnk' => 'required',
+            ]);
+
+            $fotoKtp = $request->file('foto_ktp')->hashName();
+            $request->file('foto_ktp')->move(public_path('fotoKtp'), $fotoKtp);
+
+            $fotoStnkBpkb = $request->file('foto_stnk')->hashName();
+            $request->file('foto_stnk')->move(public_path('fotoStnkBpkb'), $fotoStnkBpkb);
 
 
-    //     return back()->with(['success' => true, 'results' => $results, 'resporns'=>$response]);
-    //     // echo "maksimal pencairan", $maximalPencairan, "<br>";
-    //     // echo "Pokok Pinjaman: Rp " . number_format($pv, 0, ',', '.'), "<br>";
-    //     // echo "Angsuran per bulan: Rp " . number_format($angsuran, 0, ',', '.');
-    // }
+            $jumlahPinjaman = str_replace(['Rp. ', '.'], '', $request->jumlah_pinjaman);
+            clnNasabah::create([
+                'jumlah_pinjaman' => $jumlahPinjaman,
+                'namaktp' => $request->namaktp,
+                'nik' => $request->nik,
+                'nohp' => $request->nohp,
+                'email' => $request->email,
+                'provinsi' => $request->provinsi,
+                'kota' => $request->kota,
+                'kecamatan' => $request->kecamatan,
+                'kelurahan' => $request->kelurahan,
+                'alamat' => $request->alamat,
+                'tmp_lahir' => $request->tmp_lahir,
+                'tgl_lahir' => $request->tgl_lahir,
+                'nm_ibu' => $request->nm_ibu,
+                'tgl_janji' => $request->tgl_janji,
+                'merk_kendaraan' => $request->merk_kendaraan,
+                'thn_kendaraan' => $request->thn_kendaraan,
+                'tenor' => $request->tenor,
+                'pekerjaan' => $request->pekerjaan,
+                'lama_bekerja' => $request->lama_bekerja,
+                'plat_kendaraan' => $request->plat_kendaraan,
+                'foto_ktp' => $fotoKtp,
+                'foto_stnk' => $fotoStnkBpkb,
+                'voucher' => $request->voucher,
+            ]);
+
+            return redirect()->route('simulasi.index');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            // return back()->with('error', 'Terjadi Kesalahan');
+        }
+    }
 }
