@@ -13,12 +13,30 @@ return new class extends Migration
     {
         Schema::create('cln_nasabah', function (Blueprint $table) {
             $table->id();
-            $table->string('nik',16);
-            $table->string('nama');
+            $table->decimal('jumlah_pinjaman',15,2);
+            $table->string('namaktp'); // Nama KTP
+            $table->string('nik',16); // No KTP
+            $table->string('nohp');
+            $table->string('email');
+            $table->string('provinsi');
+            $table->string('kota');
+            $table->string('kecamatan');
+            $table->string('kelurahan');
             $table->text('alamat');
-            $table->string('no_hp',16);
-            $table->text('email');
-
+            $table->string('tmp_lahir');
+            $table->date('tgl_lahir');
+            $table->string('nm_ibu');
+            $table->date('tgl_janji');
+            $table->string('merk_kendaraan');
+            $table->string('thn_kendaraan');
+            $table->string('tenor');
+            $table->string('npwp')->nullable();
+            $table->string('pekerjaan');
+            $table->string('lama_bekerja');
+            $table->string('plat_kendaraan');
+            $table->string('foto_ktp');
+            $table->string('foto_stnk');
+            $table->string('voucher')->nullable();
             $table->timestamps();
         });
     }

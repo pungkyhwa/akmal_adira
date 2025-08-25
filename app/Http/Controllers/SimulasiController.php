@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\asuransiRate;
 use App\Models\biayaAdmin;
 use App\Models\biayaMitra;
+use App\Models\clnNasabah;
 use App\Models\hargaKendaraan;
 use App\Models\jnsKendaraan;
 use App\Models\merekKendaraan;
@@ -13,6 +14,8 @@ use App\Models\tahunKendaraan;
 use App\Models\tenor;
 use App\Models\tipeKendaraan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SimulasiController extends Controller
 {
@@ -39,7 +42,7 @@ class SimulasiController extends Controller
             }
         }
 
-        $hargaKendaraan = str_replace('.', '', $request->input('hargaKendaraan')); 
+        $hargaKendaraan = str_replace('.', '', $request->input('hargaKendaraan'));
         $maximalPencairan = str_replace('.', '', $request->input('maksPencairan'));
         $tenor = tenor::where('id', $request->tenor)->first();
         $biayaAdmin = biayaAdmin::where('id_tenor', $request->tenor)->first();
@@ -67,43 +70,131 @@ class SimulasiController extends Controller
             'hargaKendaraan' => $hargaKendaraan
         ];
 
-        // kirim wa
-        $curl = curl_init();
+        session(['simulasi_results' => $results]);
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://api.fonnte.com/send',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => array(
-            'target' => '85156320270',
-            'message' => 'Assalamulaikum..
-            Nama : pungky
-            whatapp : 089637587329
-            Nilai Pinjaman: Rp '.number_format($maximalPencairan, 0, ',', '.').'
-            Angsuran : Rp '.number_format($angsuran, 0, ',', '.').'
-            tenor : '.$tenor->tenor.' bulan',
-          
-        ),
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: 9GdkPSi2b2W9zzQ1X2NC' //change TOKEN to your actual token
-        ),
-        ));
+        return back()->with(['success' => true, 'results' => $results]);
 
-        $response = curl_exec($curl);
+        // // kirim wa
+        // $curl = curl_init();
 
-        curl_close($curl);
-        echo $response;
-        
+        // curl_setopt_array($curl, array(
+        // CURLOPT_URL => 'https://api.fonnte.com/send',
+        // CURLOPT_RETURNTRANSFER => true,
+        // CURLOPT_ENCODING => '',
+        // CURLOPT_MAXREDIRS => 10,
+        // CURLOPT_TIMEOUT => 0,
+        // CURLOPT_FOLLOWLOCATION => true,
+        // CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        // CURLOPT_CUSTOMREQUEST => 'POST',
+        // CURLOPT_POSTFIELDS => array(
+        //     'target' => '85156320270',
+        //     'message' => 'Assalamulaikum..
+        //     Nama : pungky
+        //     whatapp : 089637587329
+        //     Nilai Pinjaman: Rp '.number_format($maximalPencairan, 0, ',', '.').'
+        //     Angsuran : Rp '.number_format($angsuran, 0, ',', '.').'
+        //     tenor : '.$tenor->tenor.' bulan',
+
+        // ),
+        // CURLOPT_HTTPHEADER => array(
+        //     'Authorization: 9GdkPSi2b2W9zzQ1X2NC' //change TOKEN to your actual token
+        // ),
+        // ));
+
+        // $response = curl_exec($curl);
+
+        // curl_close($curl);
+        // echo $response;
+
 
 
         // return back()->with(['success' => true, 'results' => $results, 'resporns'=>$response]);
         // echo "maksimal pencairan", $maximalPencairan, "<br>";
         // echo "Pokok Pinjaman: Rp " . number_format($pv, 0, ',', '.'), "<br>";
         // echo "Angsuran per bulan: Rp " . number_format($angsuran, 0, ',', '.');
+    }
+
+    public function dataCalonNasabah()
+    {
+        try {
+            $jumlahPinjaman = session('simulasi_results');
+            // dd($jumlahPinjaman['maksimal_pencairan']);
+            $tenor = tenor::get();
+            $merkKendaraan = merekKendaraan::get();
+            $tahunKendaraan = tahunKendaraan::get();
+            return view('landingPage.simulasi.dataCalonPeminjam', compact('tenor', 'merkKendaraan','jumlahPinjaman'));
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Terjadi Kesalahan');
+        }
+    }
+
+    public function storeDataCalonNasabah(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'jumlah_pinjaman' => 'required',
+                'namaktp' => 'required',
+                'nik' => 'required',
+                'nohp' => 'required',
+                'email' => 'required',
+                'provinsi' => 'required',
+                'kota' => 'required',
+                'kecamatan' => 'required',
+                'kelurahan' => 'required',
+                'alamat' => 'required',
+                'tmp_lahir' => 'required',
+                'tgl_lahir' => 'required',
+                'nm_ibu' => 'required',
+                'tgl_janji' => 'required',
+                'merk_kendaraan' => 'required',
+                'thn_kendaraan' => 'required',
+                'tenor' => 'required',
+                'pekerjaan' => 'required',
+                'lama_bekerja' => 'required',
+                'plat_kendaraan' => 'required',
+                'foto_ktp' => 'required',
+                'foto_stnk' => 'required',
+            ]);
+
+            $fotoKtp = $request->file('foto_ktp')->hashName();
+            $request->file('foto_ktp')->move(public_path('fotoKtp'), $fotoKtp);
+
+            $fotoStnkBpkb = $request->file('foto_stnk')->hashName();
+            $request->file('foto_stnk')->move(public_path('fotoStnkBpkb'), $fotoStnkBpkb);
+
+
+            $jumlahPinjaman = str_replace(['Rp. ', '.'], '', $request->jumlah_pinjaman);
+            clnNasabah::create([
+                'jumlah_pinjaman' => $jumlahPinjaman,
+                'namaktp' => $request->namaktp,
+                'nik' => $request->nik,
+                'nohp' => $request->nohp,
+                'email' => $request->email,
+                'provinsi' => $request->provinsi,
+                'kota' => $request->kota,
+                'kecamatan' => $request->kecamatan,
+                'kelurahan' => $request->kelurahan,
+                'alamat' => $request->alamat,
+                'tmp_lahir' => $request->tmp_lahir,
+                'tgl_lahir' => $request->tgl_lahir,
+                'nm_ibu' => $request->nm_ibu,
+                'tgl_janji' => $request->tgl_janji,
+                'merk_kendaraan' => $request->merk_kendaraan,
+                'thn_kendaraan' => $request->thn_kendaraan,
+                'tenor' => $request->tenor,
+                'pekerjaan' => $request->pekerjaan,
+                'lama_bekerja' => $request->lama_bekerja,
+                'plat_kendaraan' => $request->plat_kendaraan,
+                'foto_ktp' => $fotoKtp,
+                'foto_stnk' => $fotoStnkBpkb,
+                'voucher' => $request->voucher,
+            ]);
+
+            return redirect()->route('simulasi.index');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            // return back()->with('error', 'Terjadi Kesalahan');
+        }
     }
 }
