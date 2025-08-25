@@ -61,87 +61,78 @@
     </style>
 
     <div class="content-wrapper">
+        <!-- Header -->
         <div class="page-header">
             <h3 class="page-title">
                 <span class="page-title-icon bg-gradient-primary text-white me-2">
                     <i class="mdi mdi-home"></i>
-                </span> Tampil Biaya Admin
+                </span>
+                Setting Nomor Whatsapp
             </h3>
             <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item active" aria-current="page">
-                        <span></span>Biaya Admin <i
-                            class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                        <span></span>
+                        Data Nomor Whatsapp
+                        <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
                     </li>
                 </ul>
             </nav>
         </div>
+
+        <!-- Content -->
         <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Biaya Admin</h4>
-                        <p class="card-description">Tabel Berisi Biaya Admin</p>
-
+                        <h4 class="card-title mb-5 text-purple">Data Kontak Whatsapp</h4>
                         <!-- Search -->
                         <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-
                             <!-- Tombol Tambah Data (kiri) -->
-                            <a class="btn btn-gradient-primary me-2" href="{{ route('biayaAdmin.create') }}">
+                            @if ($data->count() == 2)
+
+                            @else
+                            <a class="btn btn-gradient-primary me-2" href="{{ route('settingNomorWhatsapp.create') }}">
                                 Tambah Data
                             </a>
-
+                            @endif
                             <!-- Form Search (kanan) -->
-                            <form action="{{ route('biayaAdmin.index') }}" method="GET" class="d-flex mb-3">
+                            <form action="{{ route('settingNomorWhatsapp.index') }}" method="GET" class="d-flex mb-3">
                                 <div class="input-group">
                                     <input type="text" name="cari" class="form-control search-bar"
                                         placeholder="Cari...">
                                     <button class="btn btn-gradient-primary" type="submit">Cari</button>
                                 </div>
                             </form>
-
                         </div>
-
-                        <!-- Table -->
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped table-purple">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Rate</th>
-                                        <th>Tenor</th>
-                                        <th>Biaya Admin</th>
-                                        <th>Minimal Pinjaman</th>
-                                        <th>Maximal Pinjaman</th>
+                                        <th>Nama</th>
+                                        <th>Nomor Whatsapp</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     @forelse ($data as $row)
                                         <tr>
-                                            <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</td>
-                                            <td>{{$row->rate->rate}} %</td>
-                                            <td>{{$row->tenor->tenor}} {{$row->tenor->satuan}}</td>
-                                            <td>Rp. {{number_format($row->biaya_admin, 0, ',', '.')}}</td>
-                                            <td>Rp. {{number_format($row->min_pinjaman, 0, ',', '.')}}</td>
-                                            <td>Rp. {{number_format($row->max_pinjaman, 0, ',', '.')}}</td>
+                                            <td>{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}
+                                            </td>
+                                            <td>{{$row->nama}}</td>
+                                            <td>{{$row->nomor_whatsapp}}</td>
                                             <td>
                                                 <div class="d-flex justify-content-center gap-2 flex-wrap">
-                                                    <a href="{{route('biayaAdmin.edit', $row->id)}}"
+                                                    <a href="{{route('settingNomorWhatsapp.edit', $row->id)}}"
                                                         class="btn btn-success">edit</a>
-                                                    <form action="{{route('biayaAdmin.destroy', $row->id)}}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">hapus</button>
-                                                    </form>
                                                 </div>
 
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7">Data Belum Ditambahkan.</td>
+                                            <td colspan="4">Tidak Ada Data.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
@@ -151,8 +142,8 @@
                         <!-- Pagination & Info Jumlah Data -->
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="text-muted">
-                                Menampilkan data ke {{ $data->firstItem() }} sampai {{ $data->lastItem() }} dari total
-                                {{ $data->total() }} data.
+                                Menampilkan data ke {{ $data->firstItem() }} sampai
+                                {{ $data->lastItem() }} dari total {{ $data->total() }} data.
                             </div>
                             <div>
                                 {{ $data->appends(['search' => request('search')])->links('pagination::bootstrap-4') }}
@@ -161,7 +152,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    </x-layout>
+</x-layout.admin>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\asuransiRate;
 use App\Models\biayaAdmin;
 use App\Models\biayaMitra;
+use App\Models\clnNasabah;
 use App\Models\hargaKendaraan;
 use App\Models\jnsKendaraan;
 use App\Models\merekKendaraan;
@@ -13,6 +14,8 @@ use App\Models\tahunKendaraan;
 use App\Models\tenor;
 use App\Models\tipeKendaraan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 use function Laravel\Prompts\select;
 
@@ -115,7 +118,37 @@ class SimulasiController extends Controller
         ),
         ));
 
-        $response = curl_exec($curl);
+        // // kirim wa
+        // $curl = curl_init();
+
+        // curl_setopt_array($curl, array(
+        // CURLOPT_URL => 'https://api.fonnte.com/send',
+        // CURLOPT_RETURNTRANSFER => true,
+        // CURLOPT_ENCODING => '',
+        // CURLOPT_MAXREDIRS => 10,
+        // CURLOPT_TIMEOUT => 0,
+        // CURLOPT_FOLLOWLOCATION => true,
+        // CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        // CURLOPT_CUSTOMREQUEST => 'POST',
+        // CURLOPT_POSTFIELDS => array(
+        //     'target' => '85156320270',
+        //     'message' => 'Assalamulaikum..
+        //     Nama : pungky
+        //     whatapp : 089637587329
+        //     Nilai Pinjaman: Rp '.number_format($maximalPencairan, 0, ',', '.').'
+        //     Angsuran : Rp '.number_format($angsuran, 0, ',', '.').'
+        //     tenor : '.$tenor->tenor.' bulan',
+
+        // ),
+        // CURLOPT_HTTPHEADER => array(
+        //     'Authorization: 9GdkPSi2b2W9zzQ1X2NC' //change TOKEN to your actual token
+        // ),
+        // ));
+
+        // $response = curl_exec($curl);
+
+        // curl_close($curl);
+        // echo $response;
 
         curl_close($curl);
         return back()->with(['success' => true, 'results' => $results]);
