@@ -37,7 +37,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/tahunKendaraan', tahunKendaraanController::class);
     Route::resource('/hargaKendaraan', HargaKendaraanController::class);
 
-    Route::resource('/coba', cobaController::class);
+    // Route::resource('/coba', cobaController::class);
     Route::get('/dataCalonNasabah', [DataCalonNasabahController::class, 'index'])->name('dataCalonNasabah.index');
     Route::get('/dataCalonNasabah/detailCalonNasabah/{id}', [DataCalonNasabahController::class, 'show'])->name('dataCalonNasabah.show');
 

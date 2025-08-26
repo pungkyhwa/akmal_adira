@@ -3,13 +3,13 @@
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
                 <div class="nav-profile-image">
-                    <img src="{{asset('assets/images/faces/face1.jpg')}}" alt="profile" />
+                    <img src="{{asset('default-profile.jpg')}}" alt="profile" />
                     <span class="login-status online"></span>
                     <!--change to offline or busy as needed-->
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
-                    <span class="font-weight-bold mb-2">David Grey. H</span>
-                    <span class="text-secondary text-small">Project Manager</span>
+                    <span class="font-weight-bold mb-2">{{ auth()->user()->name}}</span>
+                    <span class="text-secondary text-small">{{ auth()->user()->role}}</span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
             </a>
@@ -23,31 +23,31 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('asuransiRate.index')}}">
                 <span class="menu-title">Insurance Rate</span>
-                <i class="mdi mdi-home menu-icon"></i>
+                <i class="fa fa-car menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('tenor.index')}}">
                 <span class="menu-title">Tenor</span>
-                <i class="mdi mdi-home menu-icon"></i>
+                <i class="fas fa-clock menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('biayaMitra.index')}}">
                 <span class="menu-title">Fee Aksi</span>
-                <i class="mdi mdi-home menu-icon"></i>
+                <i class="fas fa-money-bill-wave menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('rate.index')}}">
                 <span class="menu-title">Rate</span>
-                <i class="mdi mdi-home menu-icon"></i>
+                <i class="fas fa-percentage menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('biayaAdmin.index')}}">
                 <span class="menu-title">Biaya Admin</span>
-                <i class="mdi mdi-home menu-icon"></i>
+                <i class="fa fa-money menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
@@ -55,7 +55,7 @@
                 aria-controls="ui-basic">
                 <span class="menu-title">Kendaraan</span>
                 <i class="menu-arrow"></i>
-                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                <i class="fa menu-icon fa-car"></i>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
@@ -80,13 +80,13 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('dataCalonNasabah.index')}}">
                 <span class="menu-title">Calon Nasabah</span>
-                <i class="mdi mdi-home menu-icon"></i>
+                <i class="fa fa-user-o menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('settingNomorWhatsapp.index')}}">
                 <span class="menu-title">Setting Nomor Whatsapp</span>
-                <i class="mdi mdi-home menu-icon"></i>
+                <i class="fab fa-whatsapp menu-icon"></i>
             </a>
         </li>
     </ul>

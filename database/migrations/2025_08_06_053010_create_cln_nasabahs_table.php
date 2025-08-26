@@ -29,6 +29,7 @@ return new class extends Migration
             $table->date('tgl_janji');
             $table->string('merk_kendaraan');
             $table->string('thn_kendaraan');
+            $table->string('tipe_kendaraan');
             $table->string('tenor');
             $table->string('npwp')->nullable();
             $table->string('pekerjaan');
@@ -36,7 +37,7 @@ return new class extends Migration
             $table->string('plat_kendaraan');
             $table->string('foto_ktp');
             $table->string('foto_stnk');
-            $table->string('voucher')->nullable();
+            $table->string('foto_kk');
             $table->timestamps();
         });
     }
