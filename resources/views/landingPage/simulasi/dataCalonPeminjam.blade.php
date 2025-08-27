@@ -59,7 +59,7 @@
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
-                <li><a href="#" class="hover:underline">Contact Us</a></li>
+                <li><a href="/contactUs" class="hover:underline">Contact Us</a></li>
             </ul>
         </div>
 
@@ -156,8 +156,8 @@
                     </label>
                     <input type="text"
                         class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3"
-                        name="jumlah_pinjaman" id="jumlah_pinjaman" value="{{ $jumlahPinjaman['maksimal_pencairan']}}"
-                        readonly>
+                        name="jumlah_pinjaman" id="jumlah_pinjaman"
+                        value="{{ session('simulasi_results.jumlahPinjaman') }}" readonly>
                 </div>
             </div>
 
@@ -278,15 +278,13 @@
                     <label for="tenor" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1">
                         Tenor <p class="text-red-500">*</p>
                     </label>
-                    <select id="tenor" name="tenor" required
-                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
-                    <option value="" disabled {{old('tenor') ? '' : 'selected'}}>Pilih Opsi</option>
-                    @foreach ($tenor as $item)
-                        <option value="{{ $item->id }}" {{old('tenor') == $item->id ? 'selected' : ''}}>{{$item->tenor}}
-                            {{$item->satuan}}
-                        </option>
-                    @endforeach
-                    </select>
+                    <!-- Tampilan ke user -->
+                    <input type="text" value="{{ $tenor->tenor }} {{ $tenor->satuan }}"
+                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3"
+                        readonly />
+
+                    <!-- Data yang terkirim ke DB -->
+                    <input type="hidden" name="tenor" value="{{ $tenor->tenor }}">
                 </div>
 
                 <div>
@@ -400,7 +398,7 @@
 
 
     <!-- FOOTER -->
-    <footer class="bg-gray-600 text-white py-10 px-6 mt-10 text-sm md:text-base w-full">
+    <footer class="bg-gray-600 text-white py-10 px-6 mt-10 text-sm md:text-base">
         <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-3">
 
             <!-- Kontak -->
@@ -411,14 +409,14 @@
                     <div>
                         <p class="font-bold">Call Center Adira</p>
                         <p>0821 1375 1469</p>
+                        <p>0899 8258 067</p>
                     </div>
                 </div>
                 <div class="mt-6">
-                    <p class="font-bold mb-1">Kantor Pusat Adira Finance</p>
+                    <p class="font-bold mb-1">Kantor Adira Finance Alam Sutera</p>
                     <p class="leading-relaxed">
-                        Jl. Raya Serpong Km 7 No.38,<br />
-                        Pakulonan, Serpong Utara,<br />
-                        Tangerang Selatan, Banten 15325
+                        No.8, Jl. Raya Serpong Kilometer 7 No.38, Pakulonan, Serpong Utara, South Tangerang City, Banten
+                        15325
                     </p>
                 </div>
             </div>
@@ -429,7 +427,16 @@
                 <ul class="space-y-2">
                     <li>Gadai BPKB Mobil</li>
                     <li>Gadai BPKB Motor</li>
-                    <li>Gabung Mitra AXI Adira Finance</li>
+                    <li>
+                        <a href="https://dicicilaja.com/010524001489" class="text-blue-500">
+                            Gabung Mitra AXI Ibnu Hajar Adira Finance
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://dicicilaja.com/010525001635" class="text-blue-500">
+                            Gabung Mitra AXI Bahrudin Adira Finance
+                        </a>
+                    </li>
                 </ul>
             </div>
 

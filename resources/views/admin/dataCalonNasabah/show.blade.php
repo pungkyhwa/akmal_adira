@@ -100,6 +100,10 @@
                                     <input type="text" value="{{ $data->idTahunKendaraan->tahun_kendaran ?? '-' }}" class="form-control" readonly>
                                 </div>
                                 <div class="form-group">
+                                    <label>Tipe Kendaraan</label>
+                                    <input type="text" value="{{ $data->idTipeKendaraan->tipe_kendaraan ?? '-' }}" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
                                     <label>Tenor</label>
                                     <input type="text" value="{{ $data->idTenor->tenor ?? '' }} {{ $data->idTenor->satuan ?? '' }}" class="form-control" readonly>
                                 </div>
@@ -133,7 +137,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Foto Kartu Keluarga</label><br>
-                                    <a href="{{ asset('fotoStnkBpkb/'.$data->foto_stnk) }}" target="_blank" class="btn btn-sm btn-primary">
+                                    <a href="{{ asset('fotoKK/'.$data->foto_kk) }}" target="_blank" class="btn btn-sm btn-primary">
                                         Lihat Foto
                                     </a>
                                 </div>

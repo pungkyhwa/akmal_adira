@@ -36,7 +36,8 @@
     </style>
 </head>
 
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 min-h-screen flex flex-col">
+
     <a href="https://api.whatsapp.com/send?phone=6285156320270&text=Halo%20saya%20ingin%20bertanya"
         class="whatsapp-button" target="_blank" aria-label="Chat via WhatsApp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
@@ -66,7 +67,7 @@
         <!-- Menu (mobile) -->
         <div id="mobile-menu" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out md:hidden">
             <ul class="flex flex-col items-center gap-3 mt-4 font-bold">
-                <li><a href="/adiraAlamSutera\" class="hover:underline">Home</a></li>
+                <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
                 <li><a href="#" class="hover:underline">Contact Us</a></li>
@@ -75,78 +76,68 @@
     </nav>
 
     <!-- MAIN CONTENT -->
-    <main class="font-serif mt-10 max-w-6xl px-4 mx-auto">
-        <img src="{{ asset('landing_page/harga-wajar-admf-2021-3.jpg')}}" alt="gambar ADIRA Alam Sutera"
-            class="w-full max-w-lg mx-auto mb-[40px]" />
+    <main class="font-serif mt-10 max-w-4xl px-4 mx-auto flex-1">
+        <!-- CONTACT US -->
+        <section id="contact" class="bg-yellow-200 py-12 px-6 mt-16 font-serif">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6">Contact Us</h2>
+                <p class="mb-10 text-gray-700">
+                    Hubungi kami untuk informasi lebih lanjut mengenai layanan Adira Finance Alam Sutera.
+                </p>
 
-        <div>
-            <h1 class="text-2xl border-b-4 border-b-yellow-300 pb-4">Tentang Adira Finance</h1>
-        </div>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <!-- Form -->
+                    {{-- <form action="#" method="POST" class="bg-white p-6 rounded-lg shadow-md space-y-4 text-left">
+                        <div>
+                            <label for="name" class="block font-semibold mb-1">Nama</label>
+                            <input type="text" id="name" name="name" required
+                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                        </div>
+                        <div>
+                            <label for="email" class="block font-semibold mb-1">Email</label>
+                            <input type="email" id="email" name="email" required
+                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                        </div>
+                        <div>
+                            <label for="message" class="block font-semibold mb-1">Pesan</label>
+                            <textarea id="message" name="message" rows="4" required
+                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-2 px-4 rounded-full transition duration-300">
+                            Kirim Pesan
+                        </button>
+                    </form> --}}
 
-        <div class="flex flex-col gap-5 my-5">
-            <p>
-                Adira Finance atau PT Adira Dinamika Multi Finance Tbk didirikan pada tahun 1990 dan mulai beroperasi
-                pada
-                tahun 1991. Sejak awal, Adira Finance berkomitmen untuk menjadi perusahaan pembiayaan terbaik dan
-                terkemuka
-                di Indonesia. Adira Finance hadir untuk melayani beragam pembiayaan seperti kendaraan bermotor baik baru
-                ataupun bekas. Melihat adanya potensi ini, Adira Finance mulai melakukan penawaran umum melalui sahamnya
-                pada tahun 2004 dan Bank Danamon menjadi pemegang saham mayoritas sebesar 75%. Melalui beberapa tindakan
-                korporasi, saat ini Bank Danamon memiliki kepemilikan saham sebesar 92,07% atas Adira Finance. Sebagai
-                anak
-                perusahaan Bank Danamon, Adira Finance menjadi bagian dari MUFG Group yang merupakan salah satu bank
-                terbesar di dunia.
-            </p>
-
-            <p>
-                Adira Finance telah menjadi perusahaan terkemuka di sektor pembiayaan yang melayani beragam merek dan
-                produk. Di tahun 2017 Adira Finance menghadirkan platform e-commerce pembiayaan multiguna jasa
-                dicicilaja
-                (dot) com, marketplace jual beli kendaraan momobil (dot) id, dan diikuti momotor (dot) id pada tahun
-                2018.
-                Pada tanggal 20 Februari 2020, Adira Finance meluncurkan inovasi baru di bidang digital yaitu aplikasi
-                layanan konsumen Adiraku untuk memberikan pengalaman bertransaksi secara real time dengan mudah, aman
-                dan
-                nyaman. Hingga 31 Maret 2020, Adira Finance mengoperasikan 452 jaringan usaha di seluruh Indonesia
-                dengan
-                didukung oleh lebih dari 17.500 karyawan, untuk melayani 3 juta konsumen dengan jumlah piutang yang
-                dikelola
-                mencapai Rp 54,7 triliun.
-            </p>
-
-            <p>
-                Sejak tahun 2014, Adira Finance berhasil mendapatkan peringkat idAAA merupakan pemeringkat tertinggi
-                yang
-                diberikan oleh lembaga pemeringkat Indonesia yaitu Pefindo. Perusahaan juga memperoleh peringkat
-                investment
-                grade di tahun 2019 yaitu Baa2 oleh Moody’s dan BBB oleh Fitch, kedua peringkat internasional tersebut
-                merupakan investment grade yang sama dengan peringkat negara Indonesia. Peringkat ini secara signifikan
-                memperkuat kemampuan Perusahaan untuk mengakses sumber pendanaan yang lebih kompetitif.
-            </p>
-
-            <p>
-                Adira Finance senantiasa berupaya untuk memberikan kontribusi kepada bangsa dan negara Indonesia.
-                Melalui
-                identitas dan janji brand “Sahabat Setia Selamanya”, Adira Finance berkomitmen untuk menjalankan misi
-                yang
-                berujung pada peningkatan kesejahteraan masyarakat Indonesia. Hal itu dilakukan melalui penyediaan
-                produk
-                dan layanan yang beragam sesuai siklus kehidupan konsumen dari pembiayaan multiguna, perlengkapan rumah
-                tangga dan elektronik (durables), otomotif (motor dan mobil), hingga pembiayaan umroh (Syariah).
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-3 my-5">
-            <div>
-                <img src="{{ asset('landing_page/peta-indonesia-png-9.png')}}" alt="Peta Indonesia" class="w-full">
+                    <!-- Info Kontak -->
+                    {{-- <div class="flex flex-col justify-center text-left space-y-6"> --}}
+                        <div>
+                            <h3 class="font-bold text-lg">Kantor Adira Finance Alam Sutera</h3>
+                            <p class="text-gray-700">
+                                Jl. Raya Serpong Kilometer 7 No.38, Pakulonan, Serpong Utara,<br>
+                                South Tangerang City, Banten 15325
+                            </p>
+                        </div>
+                        <div>
+                            <p class="font-bold">Telepon</p>
+                            <p class="text-gray-700">0821 1375 1469</p>
+                            <p class="text-gray-700">0899 8258 067</p>
+                        </div>
+                        <div>
+                            <p class="font-bold">Email</p>
+                            <p class="text-gray-700">cs.adira@adira.co.id</p>
+                        </div>
+                        <div>
+                            <p class="font-bold">WhatsApp</p>
+                            <a href="https://api.whatsapp.com/send?phone=6285156320270&text=Halo%20saya%20ingin%20bertanya"
+                                target="_blank" class="text-green-600 font-semibold hover:underline">
+                                +62 851-5632-0270
+                            </a>
+                        </div>
+                    {{-- </div> --}}
+                </div>
             </div>
-
-            <div class="flex flex-col gap-3 items-center text-center font-bold justify-center text-[22px]">
-                <p>Ajukan Sekarang!</p>
-                <p>Cabang Adira Terdekat</p>
-                <p>Di Kota Anda</p>
-            </div>
-        </div>
+        </section>
     </main>
 
     <!-- FOOTER -->

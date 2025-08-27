@@ -24,13 +24,14 @@ class clnNasabah extends Model
         'tgl_janji',
         'merk_kendaraan',
         'thn_kendaraan',
+        'tipe_kendaraan',
         'tenor',
         'pekerjaan',
         'lama_bekerja',
         'plat_kendaraan',
         'foto_ktp',
         'foto_stnk',
-        'voucher',
+        'foto_kk',
     ];
 
     public function idTenor(){
@@ -43,5 +44,9 @@ class clnNasabah extends Model
 
     public function idTahunKendaraan(){
         return $this->belongsTo(tahunKendaraan::class,'thn_kendaraan','id');
+    }
+
+    public function idTipeKendaraan(){
+        return $this->belongsTo(tipeKendaraan::class,'tipe_kendaraan','id');
     }
 }
