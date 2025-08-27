@@ -59,7 +59,7 @@
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
-                <li><a href="#" class="hover:underline">Contact Us</a></li>
+                <li><a href="/contactUs" class="hover:underline">Contact Us</a></li>
             </ul>
         </div>
 
@@ -156,8 +156,8 @@
                     </label>
                     <input type="text"
                         class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3"
-                        name="jumlah_pinjaman" id="jumlah_pinjaman" value="{{ session('simulasi_results.jumlahPinjaman') }}"
-                        readonly>
+                        name="jumlah_pinjaman" id="jumlah_pinjaman"
+                        value="{{ session('simulasi_results.jumlahPinjaman') }}" readonly>
                 </div>
             </div>
 
@@ -278,15 +278,13 @@
                     <label for="tenor" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1">
                         Tenor <p class="text-red-500">*</p>
                     </label>
-                    <select id="tenor" name="tenor" required
-                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
-                    <option value="" disabled {{old('tenor') ? '' : 'selected'}}>Pilih Opsi</option>
-                    @foreach ($tenor as $item)
-                        <option value="{{ $item->id }}" {{old('tenor') == $item->id ? 'selected' : ''}}>{{$item->tenor}}
-                            {{$item->satuan}}
-                        </option>
-                    @endforeach
-                    </select>
+                    <!-- Tampilan ke user -->
+                    <input type="text" value="{{ $tenor->tenor }} {{ $tenor->satuan }}"
+                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3"
+                        readonly />
+
+                    <!-- Data yang terkirim ke DB -->
+                    <input type="hidden" name="tenor" value="{{ $tenor->tenor }}">
                 </div>
 
                 <div>

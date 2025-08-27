@@ -36,7 +36,7 @@
     </style>
 </head>
 
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 min-h-screen flex flex-col">
     <a href="https://api.whatsapp.com/send?phone=6285156320270&text=Halo%20saya%20ingin%20bertanya"
         class="whatsapp-button" target="_blank" aria-label="Chat via WhatsApp">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
@@ -59,7 +59,7 @@
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
-                <li><a href="#" class="hover:underline">Contact Us</a></li>
+                <li><a href="/contactUs" class="hover:underline">Contact Us</a></li>
             </ul>
         </div>
 
@@ -75,7 +75,7 @@
     </nav>
 
     <!-- MAIN CONTENT -->
-    <main class="font-serif mt-10 max-w-5xl px-6 mx-auto">
+    <main class="font-serif mt-10 max-w-5xl px-6 mx-auto flex-1">
         <h1 class="text-2xl font-bold border-b-4 border-yellow-300 pb-4 text-gray-800">
             Simulasi
         </h1>

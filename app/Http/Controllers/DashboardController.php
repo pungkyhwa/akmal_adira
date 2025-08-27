@@ -11,7 +11,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $totalCalonNasabah = clnNasabah::get()->count();
-        $data = clnNasabah::orderByDesc('id')->paginate(10);
+        $data = clnNasabah::orderByDesc('id')->paginate(5);
 
         $totalCalonNasabahBulanIni = clnNasabah::whereMonth('created_at', Carbon::now()->month)
             ->whereYear('created_at', Carbon::now()->year)

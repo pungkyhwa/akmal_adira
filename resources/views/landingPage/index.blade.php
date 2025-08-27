@@ -60,7 +60,7 @@
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
-                <li><a href="#" class="hover:underline">Contact Us</a></li>
+                <li><a href="/contactUs" class="hover:underline">Contact Us</a></li>
             </ul>
         </div>
 

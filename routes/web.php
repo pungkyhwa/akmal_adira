@@ -57,6 +57,10 @@ Route::get('/tentangAdira', function () {
     return view('landingPage.tentangAdira');
 });
 
+Route::get('/contactUs', function () {
+    return view('landingPage.contactUs');
+});
+
 Route::get('/simulasi', [SimulasiController::class, 'index'])->name('simulasi.index');
 Route::get('/harga-kendaraan/{jns}/{merk}/{tipe}/{thn}', [HargaKendaraanAjaxController::class, 'hargaKendaraan'])->name('harga.kendaraan');
 Route::post('/postSimulasi', [SimulasiController::class, 'storeSimulasi'])->name('simulasi.storeSimulasi');

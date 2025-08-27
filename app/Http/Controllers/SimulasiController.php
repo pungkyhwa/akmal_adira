@@ -153,7 +153,7 @@ class SimulasiController extends Controller
         try {
             $jumlahPinjaman = session('simulasi_results.jumlahPinjaman');
             // dd($jumlahPinjaman['maksimal_pencairan']);
-            $tenor = tenor::get();
+            $tenor = tenor::where('id', session('simulasi_results.tenor'))->first();
             $merkKendaraan = merekKendaraan::get();
             $tahunKendaraan = tahunKendaraan::get();
             return view('landingPage.simulasi.dataCalonPeminjam', compact('tenor', 'merkKendaraan', 'jumlahPinjaman'));
@@ -196,6 +196,8 @@ class SimulasiController extends Controller
 
             $fotoKeluarga = $request->file('foto_kk')->hashName();
             $request->file('foto_kk')->move(public_path('fotoKK'), $fotoKeluarga);
+
+            $tenor = 
 
 
             $jumlahPinjaman = str_replace(['Rp. ', '.'], '', $request->jumlah_pinjaman);
