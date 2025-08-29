@@ -37,6 +37,7 @@ class SimulasiController extends Controller
         $terima_nasabah = str_replace('.', '', $request->input('maksPencairan'));
         $queryTenor = tenor::where('id', $request->tenor)->select('*')->first();
         $pilih_tenor = $queryTenor->tenor;
+        // dd($pilih_tenor);
 
         $query = tenor::query()->with('asuransiRate');
 
@@ -186,6 +187,7 @@ class SimulasiController extends Controller
                 'plat_kendaraan' => 'required',
                 'foto_ktp' => 'required',
                 'foto_stnk' => 'required',
+                'foto_kk' => 'required',
             ]);
 
             $fotoKtp = $request->file('foto_ktp')->hashName();
@@ -197,10 +199,8 @@ class SimulasiController extends Controller
             $fotoKeluarga = $request->file('foto_kk')->hashName();
             $request->file('foto_kk')->move(public_path('fotoKK'), $fotoKeluarga);
 
-            $tenor = 
-
-
             $jumlahPinjaman = str_replace(['Rp. ', '.'], '', $request->jumlah_pinjaman);
+            $tenor = tenor::where('tenor', $request->tenor)->first();
             clnNasabah::create([
                 'jumlah_pinjaman' => $jumlahPinjaman,
                 'namaktp' => $request->namaktp,
@@ -219,7 +219,7 @@ class SimulasiController extends Controller
                 'merk_kendaraan' => session('simulasi_results.merkKendaraan'),
                 'thn_kendaraan' => session('simulasi_results.thnKendaraan'),
                 'tipe_kendaraan' => session('simulasi_results.tipeKendaraan'),
-                'tenor' => $request->tenor,
+                'tenor' => $tenor,
                 'pekerjaan' => $request->pekerjaan,
                 'lama_bekerja' => $request->lama_bekerja,
                 'plat_kendaraan' => $request->plat_kendaraan,
@@ -243,8 +243,9 @@ class SimulasiController extends Controller
                 CURLOPT_POSTFIELDS => array(
                     'target' => '82113751469',
                     'message' => 'Assalamulaikum..
-                    Nama : pungky
-                    whatapp : 089637587329
+                    Nama :  ' . $request->namaktp . '
+                    whatapp : ' . $request->nohp . '
+                    Tanggal Janji Survey : ' . $request->tgl_janji . '
 
                     Harga Kendaraan = ' . number_format(session('simulasi_results.hargaKendaraan'), 0, ',', '.') . ';
                     Terima Nasabah = ' . session('simulasi_results.maksimal_pencairan') . ';

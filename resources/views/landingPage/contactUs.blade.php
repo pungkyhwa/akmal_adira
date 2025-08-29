@@ -59,6 +59,7 @@
             <ul class="hidden md:flex gap-12 font-bold items-center">
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
+                <li><a href="/menu" class="hover:underline">Menu</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
                 <li><a href="/contactUs" class="hover:underline">Contact Us</a></li>
             </ul>
@@ -69,6 +70,7 @@
             <ul class="flex flex-col items-center gap-3 mt-4 font-bold">
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
+                <li><a href="/menu" class="hover:underline">Menu</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
                 <li><a href="#" class="hover:underline">Contact Us</a></li>
             </ul>

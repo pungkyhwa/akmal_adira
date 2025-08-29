@@ -58,6 +58,7 @@
             <ul class="hidden md:flex gap-12 font-bold items-center">
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
+                <li><a href="/menu" class="hover:underline">Menu</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
                 <li><a href="/contactUs" class="hover:underline">Contact Us</a></li>
             </ul>
@@ -68,6 +69,7 @@
             <ul class="flex flex-col items-center gap-3 mt-4 font-bold">
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
+                <li><a href="/menu" class="hover:underline">Menu</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
                 <li><a href="#" class="hover:underline">Contact Us</a></li>
             </ul>
@@ -167,9 +169,9 @@
                     <label for="namaktp" class="flex text-sm font-semibold text-gray-700 mb-1 gap-2">
                         Nama Sesuai KTP tanpa Gelar <p class="text-red-500">*</p>
                     </label>
-                    <input type="text"
+                    <input type="text" required
                         class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3"
-                        placeholder="Contoh : Bambang Marimo" name="namaktp" id="namaktp">
+                        placeholder="Contoh : Bambang Marimo" name="namaktp" id="namaktp" value="{{ old('namaktp')}}">
                 </div>
 
                 <div>
@@ -178,7 +180,7 @@
                     </label>
                     <input type="text"
                         class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3"
-                        id="nik" name="nik">
+                        id="nik" name="nik" required>
                 </div>
 
                 <div>
@@ -193,7 +195,7 @@
                     <label for="email" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1">
                         Email Address <p class="text-red-500">*</p>
                     </label>
-                    <input type="email" id="email" name="email"
+                    <input type="email" id="email" name="email" required
                         class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3">
                 </div>
 
@@ -292,7 +294,8 @@
                         Punya NPWP? <p class="text-red-500">*</p>
                     </label>
                     <select id="npwp" name="npwp"
-                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200" />
+                        class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200"
+                        required />
                     <option value="" disabled {{ old('npwp') ? '' : 'selected'}}>Pilih Opsi</option>
                     <option value="ya">Ya</option>
                     <option value="tidak">Tidak</option>
@@ -355,21 +358,21 @@
                     <div>
                         <label for="foto_ktp" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1"> Foto KTP
                         </label>
-                        <input type="file" name="foto_ktp" id="foto_ktp"
+                        <input type="file" name="foto_ktp" id="foto_ktp" required
                             class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3">
                     </div>
 
                     <div>
                         <label for="foto_stnk" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1"> Foto
                             BPKB/STNK </label>
-                        <input type="file" id="foto_stnk" name="foto_stnk"
+                        <input type="file" id="foto_stnk" name="foto_stnk" required
                             class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3">
                     </div>
 
                     <div>
                         <label for="foto_stnk" class="flex gap-2 text-sm font-semibold text-gray-700 mb-1"> Foto
                             Kartu Keluarga </label>
-                        <input type="file" id="foto_kartu_keluarga" name="foto_kk"
+                        <input type="file" id="foto_kartu_keluarga" name="foto_kk" required
                             class="w-full rounded-md border focus:border-yellow-400 focus:ring focus:ring-yellow-200 px-3">
                     </div>
                 </div>

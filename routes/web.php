@@ -18,8 +18,7 @@ use App\Http\Controllers\tenorController;
 use App\Http\Controllers\tipeKendaraanController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', [LoginController::class, 'index'])->name('login.index');
-Route::get('/', [LoginController::class, 'index'])->name('login.index');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 
@@ -52,6 +51,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::get('/adiraAlamSutera', function () {
     return view('landingPage.index');
 });
+
+Route::get('/', function () {
+    return view('landingPage.index');
+});
+
+Route::get('/menuAdira', function () {
+    return view('landingPage.menu');
+})->name('menu');
 
 Route::get('/tentangAdira', function () {
     return view('landingPage.tentangAdira');

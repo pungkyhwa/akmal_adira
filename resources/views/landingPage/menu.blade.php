@@ -59,7 +59,7 @@
             <ul class="hidden md:flex gap-12 font-bold items-center">
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
-                <li><a href="{{ route('menu')}}" class="hover:underline">Menu</a></li>
+                <li><a href="{{ route('menu')}}" class="hover:underline">Produk</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
                 <li><a href="/contactUs" class="hover:underline">Contact Us</a></li>
             </ul>
@@ -70,9 +70,9 @@
             <ul class="flex flex-col items-center gap-3 mt-4 font-bold">
                 <li><a href="/adiraAlamSutera" class="hover:underline">Home</a></li>
                 <li><a href="/simulasi" class="hover:underline">Simulasi</a></li>
-                <li><a href="{{ route('menu')}}" class="hover:underline">Menu</a></li>
+                <li><a href="{{ route('menu')}}" class="hover:underline">Produk</a></li>
                 <li><a href="/tentangAdira" class="hover:underline">Tentang Adira</a></li>
-                <li><a href="/contactUs" class="hover:underline">Contact Us</a></li>
+                <li><a href="#" class="hover:underline">Contact Us</a></li>
             </ul>
         </div>
     </nav>
@@ -81,19 +81,32 @@
     <main class="font-serif mt-10 max-w-4xl px-4 mx-auto">
         <section class="text-center">
             <h1 class="text-3xl md:text-4xl font-bold mb-6 border-b border-black inline-block pb-2">
-                ADIRA Finance Alam Sutera
+                Menu
             </h1>
+            <p class="text-lg leading-relaxed max-w-2xl mx-auto">
+                Di halaman ini Anda dapat melihat berbagai informasi terkait produk dan layanan terbaru.
+                Kami menyediakan penawaran menarik mulai dari pembiayaan kendaraan, promo cicilan ringan,
+                hingga pameran virtual yang bisa Anda ikuti secara online.
+                Nikmati kemudahan mengajukan pinjaman dengan proses cepat, syarat mudah,
+                serta berbagai promo eksklusif hanya untuk Anda.
+            </p>
         </section>
-        <img src="{{ asset('adira_alam_sutera.jpg')}}" alt="gambar ADIRA Alam Sutera" class="w-full max-w-lg mx-auto" />
 
-        <h3 class="text-center font-bold my-6 text-lg">
-            Adira Finance Cabang Alam Sutera Kota Tangerang
-        </h3>
-        <h3 class="text-center font-bold my-6 text-lg">Butuh Dana Cepat ?</h3>
+        <!-- Promo Pinjaman -->
+        <section class="mt-12 text-center">
+            <h2 class="text-2xl font-semibold mb-3">Promo Pinjaman Dana Cepat</h2>
+            <p class="text-base leading-relaxed mb-6 max-w-xl mx-auto">
+                Ajukan pinjaman dengan jaminan BPKB motor atau mobil Anda.
+                Proses cepat, pencairan maksimal, dan cicilan yang fleksibel.
+                Cocok untuk renovasi rumah, pendidikan, modal usaha, hingga kebutuhan pribadi lainnya.
+            </p>
+            <img src="{{ asset('menu/WhatsApp Image 2025-08-28 at 11.26.53.jpeg')}}" alt="Promo Pinjaman Dana Cepat"
+                class="w-full max-w-lg mx-auto rounded-lg shadow-lg" />
+        </section>
 
         <div class="text-center">
             <button
-                class="bg-yellow-300 rounded-full py-2 px-6 mb-6 font-semibold hover:bg-yellow-500  transition duration-300">
+                class="bg-yellow-300 rounded-full mt-12 py-2 px-6 font-semibold hover:bg-yellow-500  transition duration-300">
                 <a href="https://api.whatsapp.com/send?phone=6285156320270&text=Halo%20saya%20ingin%20bertanya"
                     target="__blank">
                     AJUKAN SEKARANG
@@ -101,73 +114,39 @@
             </button>
         </div>
 
-        <div class="mb-6 space-y-4">
-            <p><span style="font-weight: normal;">Halo Sahabat Adira. Kini, <strong>Pinjaman Dana Tunai Jaminan BPKB
-                        atau Gadai BPKB Adira Finance Cabang Alam Sutera</strong> bisa pengajuan secara online melalui
-                    website yang di dukung oleh PT Adira
-                    Finance Tbk.</span></p>
-            <p><b>Butuh dana tunai </b>untuk biaya modal usaha, renovasi rumah, wisata, pendidikan, kesehatan, atau
-                perayaan, sunatan, kelahiran, dan lain sebagainya? Adira Finance menawarkan fasilitas pinjaman dengan
-                <b>jaminan BPKB Mobil atau Motor </b>yang syaratnya mudah, proses pencairan dana cepat, jaringan
-                pembayaran angsuran yang luas, pilihan perlindungan asuransi yang lengkap, sistem penyimpanan BPKB yang
-                aman, serta layanan call center 24 Jam.
+        <!-- Honda Exhibition -->
+        <section class="mt-16 text-center">
+            <h2 class="text-2xl font-semibold mb-3">Honda Virtual Exhibition</h2>
+            <p class="text-base leading-relaxed mb-6 max-w-xl mx-auto">
+                Miliki motor Honda impian melalui pameran virtual eksklusif.
+                Nikmati potongan tenor hingga <strong>5 bulan</strong> dan diskon angsuran hingga
+                <strong>Rp10.000</strong>.
+                Semua transaksi bisa dilakukan dengan mudah secara online.
             </p>
-            <p>Ajukan pinjaman dana tunai mulai dari <strong>3 juta rupiah</strong> dengan BPKB Motor atau pinjaman dana
-                tunai mulai dari <strong>20 juta rupiah</strong> dengan BPKB Mobil bagi anda yang berdomisili di Alam
-                Sutera dan sekitarnya.</p>
-        </div>
-
-        <div class="mb-[30px] mt-[50px]">
-            <h3 class="font-bold text-lg mb-4">
-                Bagaimana Cara Pinjam Uang di ADIRA Finance Alam Sutera?
-            </h3>
-            <ul class="list-disc space-y-4 px-4">
-                <li>
-                    Dengan cara gadai BPKB motor atau BPKB mobil anda
-                </li>
-                <li>
-                    Pastikan BPKB yang mau dijaminkan memenuhi syarat tahun minimal seperti yang sudah dijelaskan di
-                    website
-                    ADIRAFinance.id
-                </li>
-                <li>
-                    Silahkan SMS/WA ke Call Center: 0821 1375 1469 dengan format: ADIRA Nama/No HP/Merk-
-                    Type/Tahun/Alamat
-                    Lengkap/Pekerjaan/Status Rumah
-                </li>
-                <li>
-                    Nanti tim kami akan menghubungi No HP/WA Anda untuk proses selanjutnya.
-                </li>
-            </ul>
-        </div>
+            <img src="{{ asset('menu/WhatsApp Image 2025-08-28 at 11.26.54 (1).jpeg')}}" alt="Honda Virtual Exhibition"
+                class="w-full max-w-lg mx-auto rounded-lg shadow-lg" />
+        </section>
 
         <div class="text-center">
             <button
-                class="bg-yellow-300 rounded-full py-2 px-6 mb-6 font-semibold hover:bg-yellow-500 transition duration-300">
-                <a href="/simulasi" target="__blank">
-                    SIMULASI PINJAMAN
+                class="bg-yellow-300 rounded-full mt-12 py-2 px-6 font-semibold hover:bg-yellow-500  transition duration-300">
+                <a href="https://api.whatsapp.com/send?phone=6285156320270&text=Halo%20saya%20ingin%20bertanya"
+                    target="__blank">
+                    AJUKAN SEKARANG
                 </a>
             </button>
         </div>
 
-        <h3 class="font-bold text-lg mb-4">
-            Keuntungan Mengajukan Pinjaman Dana Tunai Jaminan BPKB di ADIRA Finance?
-        </h3>
-        <ul class="list-disc space-y-4 px-4">
-            <li>Proses Cepat sekitar 1-2 hari kerja Mobil dan Motor</li>
-            <li>Bunga Ringan</li>
-            <li>Pencairan Maksimal Tanpa Potongan ( sudah cover asuransi TLO / All risk )</li>
-            <li>Bagi Nasabah Adira bisa Top Up</li>
-            <li>Jumlah pinjaman 2,5 juta – 15 milyar</li>
-            <li>Bisa melayani Take Over dari Leasing/Bank lain</li>
-            <li>Bisa Pengajuan Atas Nama PT atau Perorangan</li>
-            <li>Mobil Plat Daerah Bisa Proses</li>
-            <li>KTP daerah Bisa Proses</li>
-            <li>BPKB anda dijamin aman</li>
-            <li>Pajak Telat/mati masih bisa di proses</li>
-            <li>Transfer langsung ke rekening pribadi</li>
-            <li>Adira Finance terdaftar di OJK</li>
-        </ul>
+        <!-- Galeri Kendaraan -->
+        <section class="mt-16 text-center">
+            <h2 class="text-2xl font-semibold mb-3">Galeri Kendaraan</h2>
+            <p class="text-base leading-relaxed mb-6 max-w-xl mx-auto">
+                Lihat koleksi kendaraan terbaru yang siap menemani aktivitas Anda.
+                Dari motor harian hingga premium, semua tersedia dengan berbagai promo menarik.
+            </p>
+            <img src="{{ asset('menu/WhatsApp Image 2025-08-28 at 11.26.54.jpeg')}}" alt="Galeri Kendaraan"
+                class="w-full max-w-lg mx-auto rounded-lg shadow-lg" />
+        </section>
 
         <div class="text-center mt-6 mb-10">
             <button
@@ -183,32 +162,8 @@
                 </a>
             </button>
         </div>
-
-        <h3 class="font-bold text-base mb-4">
-            Proses Syarat Pinjaman Dana Tunai Jaminan BPKB Mobil dan Motor di Adira Finance Alam Sutera
-        </h3>
-
-        <!-- Image Sections -->
-        <div class="grid md:grid-cols-3 gap-6 content-center justify-center">
-            <div class="text-center">
-                <img src="{{ asset('ktp.jpg')}}" alt="" class="w-40 mx-auto mb-2" />
-                <p class="font-bold">Foto KTP Suami / Istri</p>
-            </div>
-            <div class="text-center">
-                <img src="{{ asset('kk.jpg')}}" alt="" class="w-40 mx-auto mb-2" />
-                <p class="font-bold">Foto Kartu Keluarga</p>
-            </div>
-            <div class="text-center">
-                <img src="{{ asset('stnk.jpg')}}" alt="" class="w-40 mx-auto mb-2" />
-                <p class="font-bold">Foto STNK dan BPKB</p>
-            </div>
-            <div class="text-center">
-                <img src="{{ asset('slip_gaji.jpg')}}" alt="" class="w-40 mx-auto mb-2" />
-                <p class="font-bold">Foto Slip Gaji Atau SKU</p>
-            </div>
-        </div>
-
     </main>
+
 
     <!-- FOOTER -->
     <footer class="bg-gray-600 text-white py-10 px-6 mt-10 text-sm md:text-base">
